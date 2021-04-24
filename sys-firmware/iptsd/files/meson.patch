@@ -1,0 +1,37 @@
+diff -Naur iptsd-master/meson.build edited_iptsd/meson.build
+--- iptsd-master/meson.build	2021-04-24 20:12:52.070042255 +0700
++++ edited_iptsd/meson.build	2021-04-24 20:08:27.490024110 +0700
+@@ -101,8 +101,7 @@
+ 	configuration: conf
+ )
+ 
+-service_manager = get_option('service_manager')
+-if service_manager.contains('systemd')
++if get_option('systemd')
+ 	systemd = dependency('systemd')
+ 	unitdir = systemd.get_pkgconfig_variable('systemdsystemunitdir')
+ 
+@@ -116,9 +115,7 @@
+ 	)
+ 
+ 	install_data('etc/udev/50-ipts.rules', install_dir: rulesdir)
+-endif
+-
+-if service_manager.contains('openrc')
++else
+ 	dependency('openrc')
+ 	openrcdir = join_paths(sysconfdir, 'init.d')
+ 
+diff -Naur iptsd-master/meson_options.txt edited_iptsd/meson_options.txt
+--- iptsd-master/meson_options.txt	2021-04-24 20:11:30.566703332 +0700
++++ edited_iptsd/meson_options.txt	2021-04-24 20:08:45.850025371 +0700
+@@ -1,8 +1,3 @@
+-option(
+-	'service_manager',
+-	type: 'array',
+-	choices: ['systemd', 'openrc'],
+-	value: ['systemd']
+-)
++option('systemd', type: 'boolean', value: false)
+ option('sample_config', type: 'boolean', value: true)
+ option('debug_tool', type: 'boolean', value: true)

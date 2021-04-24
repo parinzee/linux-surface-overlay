@@ -4,12 +4,14 @@
 EAPI=7
 
 inherit meson
+inherit eutils
+inherit ninja-utils
 
 DESCRIPTION="Userspace daemon for Intel Precise Touch & Stylus"
 HOMEPAGE="https://github.com/linux-surface/iptsd"
-SRC_URI="https://github.com/linux-surface/${PN}/releases/download/v${PV}/${P}-1-x86_64.pkg.tar.zst"
+SRC_URI="https://github.com/linux-surface/iptsd/archive/refs/heads/master.zip"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="systemd"
@@ -18,24 +20,30 @@ DEPEND="dev-libs/inih"
 RDEPEND="${DEPEND}"
 BDEPEND="dev-util/ninja sys-devel/gcc dev-util/meson"
 
-S="${WORKDIR}/${PN}-${P}"
-
 src_unpack() {
-	unpack ${P}-1-x86_64.pkg.tar.zst
+	unpack ${DISTDIR}/master.zip
+}
+
+S="${WORKDIR}/${PN}-master"
+
+src_prepare() {
+	eapply "${FILESDIR}/meson.patch"
+	eapply_user
 }
 
 src_configure() {
 	local emesonargs=(
-		$(meson_use systemd servicemanager=systemd)
-		$(meson_use -systemd servicemanager=openrc)
+		$(meson_use systemd)
 	)
 	meson_src_configure
 }
 
 src_compile() {
 	meson_src_compile
-	eninja -C ${S}/build
+	eninja -C ${WORKDIR}/${P}-build
 }
+
 src_install() {
-	eninja -C ${S}/build install
+	#eninja -C ${WORKDIR}/${P}-build install
+	ninja -C ${WORKDIR}/${P}-build install DESTDIR=${D} 
 }
