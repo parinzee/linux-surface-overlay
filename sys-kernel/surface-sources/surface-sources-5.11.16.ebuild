@@ -26,8 +26,7 @@ SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}
 		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.11/0007-surface-typecover.patch
 		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.11/0008-surface-sensors.patch
 		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.11/0009-cameras.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.11/0010-ath10k-firmware-override.patch
-		"
+		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.11/0010-ath10k-firmware-override.patch"
 
 
 src_prepare() {
@@ -47,7 +46,7 @@ src_prepare() {
 pkg_setup() {
 	ewarn ""
 	ewarn "${PN} is *not* supported by the Gentoo Kernel Project in any way."
-	ewarn "If you need support, please contact the pf developers directly."
+	ewarn "If you need support, please contact the overlay developers directly."
 	ewarn "Do *not* open bugs in Gentoo's bugzilla unless you have issues with"
 	ewarn "the ebuilds. Thank you."
 	ewarn ""
