@@ -17,3 +17,7 @@ eg:```layman -a linux-surface```
 # Packages List
 - surface-sources-5.11.16
 - iptsd-0.4
+
+# Information
+- surface-sources is the normal gentoo-sources with surface patchsets installed
+- iptsd is needed for touchscreen support. Please also enable the services after install.
