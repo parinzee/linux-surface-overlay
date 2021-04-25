@@ -22,3 +22,5 @@ eg:```eselect repository enable linux-surface```
 # Information
 - surface-sources is the normal gentoo-sources with surface patchsets installed
 - iptsd is needed for touchscreen support. Please also enable the services after install.
+
+###### Please star this repo if you liked it!
