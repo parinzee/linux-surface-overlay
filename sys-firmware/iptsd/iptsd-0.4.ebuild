@@ -44,6 +44,6 @@ src_compile() {
 }
 
 src_install() {
-	#eninja -C ${WORKDIR}/${P}-build install DESTDIR=${D}
-	ninja -C ${WORKDIR}/${P}-build install DESTDIR=${D} 
+	DESTDIR="${D}" eninja -C ${WORKDIR}/${P}-build install
+	#ninja -C ${WORKDIR}/${P}-build install
 }
