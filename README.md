@@ -1,4 +1,4 @@
-###### Please star this repo if you liked it!
+##### Please star this repo if you liked it!
 # linux-surface-overlay
 Gentoo Overlay with surface kernel and other utilities from linux-surface repo. Packages are currently working, but require further testing!
 
