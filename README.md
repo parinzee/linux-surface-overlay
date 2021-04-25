@@ -13,6 +13,7 @@ Gentoo Overlay with surface kernel and other utilities from linux-surface repo. 
 Use layman or eselect repositiory.
 
 eg:```layman -a linux-surface```
+
 eg:```eselect repository enable linux-surface```
 
 
