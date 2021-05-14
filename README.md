@@ -1,5 +1,9 @@
 ##### Please star this repo if you liked it!
 # linux-surface-overlay
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](https://forthebadge.com)
+
 Gentoo Overlay with surface kernel and other utilities from linux-surface repo. Packages are currently working, but require further testing!
 
 - [X] Surface-sources
