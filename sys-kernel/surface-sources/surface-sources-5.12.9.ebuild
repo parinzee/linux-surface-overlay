@@ -5,7 +5,7 @@ EAPI="6"
 ETYPE="sources"
 K_SECURITY_UNSUPPORTED="1"
 K_WANT_GENPATCHES="base extras experimental"
-K_GENPATCHES_VER="3"
+K_GENPATCHES_VER="10"
 
 inherit kernel-2
 inherit eutils
@@ -23,8 +23,8 @@ SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}
 		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0004-ipts.patch
 		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0005-surface-sam-over-hid.patch
 		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0006-surface-sam.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0007-surface-hotplug.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0008-surface-typecover.patch
+		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0007-surface-typecover.patch
+		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0008-surface-go-touchscreen.patch
 		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0009-cameras.patch -> 5.12-cameras.patch"
 
 
@@ -35,8 +35,8 @@ src_prepare() {
 	eapply "${DISTDIR}/0004-ipts.patch"
 	eapply "${DISTDIR}/0005-surface-sam-over-hid.patch"
     eapply "${DISTDIR}/0006-surface-sam.patch"
-    eapply "${DISTDIR}/0007-surface-hotplug.patch"
-    eapply "${DISTDIR}/0008-surface-typecover.patch"
+    eapply "${DISTDIR}/0007-surface-typecover.patch"
+    eapply "${DISTDIR}/0008-surface-go-touchscreen.patch"
     eapply "${DISTDIR}/5.12-cameras.patch"
 	eapply_user
 }
