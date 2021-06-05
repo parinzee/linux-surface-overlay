@@ -16,7 +16,7 @@ Gentoo Overlay with surface kernel and other utilities from linux-surface repo. 
 - [X] Iptsd (please test the systemd useflag)
 - [X] Hosting this overlay
 - [X] Get added to gentoo overlay list
-- [ ] More utilities from linux-surface
+- [X] More utilities from linux-surface
 - [ ] Plans to write out a full install guide
 
 
