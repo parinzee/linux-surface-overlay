@@ -30,7 +30,7 @@ eg:```eselect repository enable linux-surface```
 
 # Packages List
 - surface-sources-5.13.4
-- surface-sources-4.19.198
+- surface-sources-lts-4.19.198
 - iptsd-0.4
 - libwacom-surface-1.9
 - surface-control-9999 (I need help for testing this as I don't personally use it).
