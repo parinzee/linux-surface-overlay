@@ -34,10 +34,10 @@ src_prepare() {
 	eapply "${DISTDIR}/0003-ath10k.patch"
 	eapply "${DISTDIR}/0004-ipts.patch"
 	eapply "${DISTDIR}/0005-surface-sam-over-hid.patch"
-    eapply "${DISTDIR}/0006-surface-sam.patch"
-    eapply "${DISTDIR}/0007-surface-typecover.patch"
-    eapply "${DISTDIR}/0008-surface-go-touchscreen.patch"
-    eapply "${DISTDIR}/5.12-cameras.patch"
+	eapply "${DISTDIR}/0006-surface-sam.patch"
+	eapply "${DISTDIR}/0007-surface-typecover.patch"
+	eapply "${DISTDIR}/0008-surface-go-touchscreen.patch"
+	eapply "${DISTDIR}/5.12-cameras.patch"
 	eapply_user
 }
 
