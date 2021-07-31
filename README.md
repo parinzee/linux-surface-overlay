@@ -1,9 +1,4 @@
-##### Please star this repo if you liked it!
-# ANNOUNCEMENT: 
-1. I nuked my Gentoo install :( 
-2. Development will continue, but for the meantime I'll be running Gentoo in chroot. 
-3. So I need testers! Open an issue if you want to help!
-
+#### Please star this repo if you liked it
 # linux-surface-overlay
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
