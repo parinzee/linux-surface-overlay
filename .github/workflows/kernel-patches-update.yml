@@ -1,0 +1,30 @@
+name: Kernel Patches Update
+
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install Git
+        run: sudo apt-get install git
+
+      - name: Update kernel patches
+        run: |
+             cd $GITHUB_WORKSPACE
+             cd sys-kernel/surface-sources/
+             ./update-sources.sh
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
