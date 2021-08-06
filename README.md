@@ -25,16 +25,12 @@ eg:```eselect repository enable linux-surface```
 
 # Packages List
 - surface-sources-5.13.4
-- surface-sources-lts-4.19.198
 - iptsd-0.4
 - libwacom-surface-1.9
 - surface-control-9999 (I need help for testing this as I don't personally use it).
 
 # Information
 - *surface-sources* is the normal gentoo-sources with surface patchsets installed.
-- *surface-sources-lts* is the **long term support** version of **surface-sources**.
 - *iptsd* is needed for touchscreen support. Please also enable the services after install.
 - *libwacom-surface* helps provides better touchscreen support, please install it.
 - *surface-control* is a commandline utility to help with controlling your surface device, recommended to install.
-
-
