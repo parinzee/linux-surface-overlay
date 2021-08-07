@@ -19,17 +19,17 @@ DESCRIPTION="Full sources including the Gentoo and Surface patchset for the ${KV
 SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}"
 
 src_prepare() {
-	eapply "${FILESDIR}/${KV_MAJOR}/0001-surface3-oemb.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0002-mwifiex.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0003-ath10k.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0004-ipts.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0005-surface-sam-over-hid.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0006-surface-sam.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0007-surface-hotplug.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0008-surface-typecover.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0009-cameras.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0010-amd-gpio.patch"
-	eapply "${FILESDIR}/${KV_MAJOR}/0011-amd-s0ix.patch"
+	eapply "${FILESDIR}/5.13/0001-surface3-oemb.patch"
+	eapply "${FILESDIR}/5.13/0002-mwifiex.patch"
+	eapply "${FILESDIR}/5.13/0003-ath10k.patch"
+	eapply "${FILESDIR}/5.13/0004-ipts.patch"
+	eapply "${FILESDIR}/5.13/0005-surface-sam-over-hid.patch"
+	eapply "${FILESDIR}/5.13/0006-surface-sam.patch"
+	eapply "${FILESDIR}/5.13/0007-surface-hotplug.patch"
+	eapply "${FILESDIR}/5.13/0008-surface-typecover.patch"
+	eapply "${FILESDIR}/5.13/0009-cameras.patch"
+	eapply "${FILESDIR}/5.13/0010-amd-gpio.patch"
+	eapply "${FILESDIR}/5.13/0011-amd-s0ix.patch"
 	eapply_user
 }
 
