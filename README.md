@@ -12,7 +12,7 @@ Gentoo Overlay with surface kernel and other utilities from linux-surface repo. 
 - [X] Hosting this overlay
 - [X] Get added to gentoo overlay list
 - [X] More utilities from linux-surface
-- [ ] Plans to write out a full install guide
+- [X] Plans to write out a full install guide
 
 
 # Usage
