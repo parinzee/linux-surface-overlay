@@ -14,7 +14,6 @@ Gentoo Overlay with surface kernel and other utilities from linux-surface repo. 
 - [X] More utilities from linux-surface
 - [X] Plans to write out a full install guide
 
-
 # Usage
 Use layman or eselect repositiory.
 
