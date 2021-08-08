@@ -14,6 +14,15 @@ Gentoo Overlay with surface kernel and other utilities from linux-surface repo. 
 - [X] More utilities from linux-surface
 - [X] Plans to write out a full install guide
 
+# Full Install Guide
+If you already have a bootable USB with secureboot disabled you can go ahead and watch the Install Guide:
+
+https://youtu.be/f9OQxdOk-TM
+
+Otherwise, please follow the _**prerequisites first**_
+
+https://parinz.github.io/linux-surface-overlay/docs/intro/
+
 # Usage
 Use layman or eselect repositiory.
 
