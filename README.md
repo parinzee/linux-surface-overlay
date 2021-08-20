@@ -7,13 +7,6 @@
 
 Gentoo Overlay with surface kernel and other utilities from linux-surface repo. Packages are currently working, but require further testing!
 
-- [X] Surface-sources
-- [X] Iptsd (please test the systemd useflag)
-- [X] Hosting this overlay
-- [X] Get added to gentoo overlay list
-- [X] More utilities from linux-surface
-- [X] Plans to write out a full install guide
-
 # Full Install Guide
 If you already have a bootable USB with secureboot disabled you can go ahead and watch the Install Guide:
 
