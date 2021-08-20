@@ -16,28 +16,21 @@ KEYWORDS="~amd64"
 HOMEPAGE="https://github.com/linux-surface/linux-surface"
 IUSE="experimental"
 DESCRIPTION="Full sources including the Gentoo and Surface patchset for the ${KV_MAJOR}.${KV_MINOR} kernel tree."
-SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0001-surface3-oemb.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0002-mwifiex.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0003-ath10k.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0004-ipts.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0005-surface-sam-over-hid.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0006-surface-sam.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0007-surface-typecover.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0008-surface-go-touchscreen.patch
-		https://raw.githubusercontent.com/linux-surface/linux-surface/master/patches/5.12/0009-cameras.patch -> 5.12-cameras.patch"
+SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}"
 
 
 src_prepare() {
-	eapply "${DISTDIR}/0001-surface3-oemb.patch"
-	eapply "${DISTDIR}/0002-mwifiex.patch"
-	eapply "${DISTDIR}/0003-ath10k.patch"
-	eapply "${DISTDIR}/0004-ipts.patch"
-	eapply "${DISTDIR}/0005-surface-sam-over-hid.patch"
-	eapply "${DISTDIR}/0006-surface-sam.patch"
-	eapply "${DISTDIR}/0007-surface-typecover.patch"
-	eapply "${DISTDIR}/0008-surface-go-touchscreen.patch"
-	eapply "${DISTDIR}/5.12-cameras.patch"
+	eapply "${FILESDIR}/5.12/0001-surface3-oemb.patch"
+	eapply "${FILESDIR}/5.12/0002-mwifiex.patch"
+	eapply "${FILESDIR}/5.12/0003-ath10k.patch"
+	eapply "${FILESDIR}/5.12/0004-ipts.patch"
+	eapply "${FILESDIR}/5.12/0005-surface-sam-over-hid.patch"
+	eapply "${FILESDIR}/5.12/0006-surface-sam.patch"
+	eapply "${FILESDIR}/5.12/0007-surface-typecover.patch"
+	eapply "${FILESDIR}/5.12/0008-surface-go-typecover.patch"
+	eapply "${FILESDIR}/5.12/0009-surface-go-touchscreen.patch"
+	eapply "${FILESDIR}/5.12/0010-cameras.patch"
+	eapply "${FILESDIR}/5.12/0011-s0ix-amd.patch"
 	eapply_user
 }
 
