@@ -9,7 +9,7 @@ inherit ninja-utils
 
 DESCRIPTION="Userspace daemon for Intel Precise Touch & Stylus"
 HOMEPAGE="https://github.com/linux-surface/iptsd"
-SRC_URI="https://github.com/linux-surface/iptsd/archive/refs/heads/master.zip"
+SRC_URI="https://github.com/linux-surface/iptsd/archive/refs/tags/v0.4.zip"
 
 LICENSE="GPL-2+"
 SLOT="0"
