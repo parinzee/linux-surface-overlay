@@ -8,7 +8,7 @@ inherit meson python-any-r1 toolchain-funcs udev
 
 DESCRIPTION="Library for identifying Wacom tablets and their model-specific features"
 HOMEPAGE="https://github.com/linuxwacom/libwacom"
-SRC_URI="https://github.com/linuxwacom/${PN}/releases/download/${P}/${P}.tar.bz2"
+SRC_URI="https://github.com/linuxwacom/libwacom/releases/download/libwacom-${PV}/libwacom-${PV}.tar.bz2"
 
 LICENSE="MIT"
 SLOT="0"
