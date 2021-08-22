@@ -5,6 +5,7 @@ EAPI=8
 
 inherit cargo
 
+CRATES=""
 DESCRIPTION="Library for Linux Surface DTX kernel driver user-space API."
 HOMEPAGE="https://github.com/linux-surface/libsurfacedtx"
 SRC_URI="https://github.com/linux-surface/libsurfacedtx/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
