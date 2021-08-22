@@ -13,6 +13,7 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="amd64 ~amd64 ~x86 x86"
 
+IUSE="doc test"
 RDEPEND=""
 DEPEND="${RDEPEND}"
 
