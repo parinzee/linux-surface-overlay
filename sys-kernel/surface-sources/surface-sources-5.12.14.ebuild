@@ -10,7 +10,7 @@ inherit eutils
 detect_version
 detect_arch
 
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 HOMEPAGE="https://github.com/linux-surface/linux-surface"
 IUSE="experimental"
 DESCRIPTION="Full sources including the Surface patchset for the ${KV_MAJOR}.${KV_MINOR} kernel tree."
