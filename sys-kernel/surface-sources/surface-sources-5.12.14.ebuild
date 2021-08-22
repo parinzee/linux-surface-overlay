@@ -4,6 +4,8 @@
 EAPI="6"
 ETYPE="sources"
 K_SECURITY_UNSUPPORTED="1"
+K_WANT_GENPATCHES="base extras experimental"
+K_GENPATCHES_VER="17"
 
 inherit kernel-2
 inherit eutils
@@ -13,7 +15,7 @@ detect_arch
 KEYWORDS="amd64"
 HOMEPAGE="https://github.com/linux-surface/linux-surface"
 IUSE="experimental"
-DESCRIPTION="Full sources including the Surface patchset for the ${KV_MAJOR}.${KV_MINOR} kernel tree."
+DESCRIPTION="Full sources including the Gentoo and Surface patchset for the ${KV_MAJOR}.${KV_MINOR} kernel tree."
 SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}"
 
 src_prepare() {
