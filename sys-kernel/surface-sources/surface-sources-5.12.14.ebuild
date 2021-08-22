@@ -4,8 +4,6 @@
 EAPI="6"
 ETYPE="sources"
 K_SECURITY_UNSUPPORTED="1"
-K_WANT_GENPATCHES="base extras experimental"
-K_GENPATCHES_VER="10"
 
 inherit kernel-2
 inherit eutils
@@ -15,9 +13,8 @@ detect_arch
 KEYWORDS="~amd64"
 HOMEPAGE="https://github.com/linux-surface/linux-surface"
 IUSE="experimental"
-DESCRIPTION="Full sources including the Gentoo and Surface patchset for the ${KV_MAJOR}.${KV_MINOR} kernel tree."
+DESCRIPTION="Full sources including the Surface patchset for the ${KV_MAJOR}.${KV_MINOR} kernel tree."
 SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}"
-
 
 src_prepare() {
 	eapply "${FILESDIR}/5.12/0001-surface3-oemb.patch"
@@ -26,8 +23,7 @@ src_prepare() {
 	eapply "${FILESDIR}/5.12/0004-ipts.patch"
 	eapply "${FILESDIR}/5.12/0005-surface-sam-over-hid.patch"
 	eapply "${FILESDIR}/5.12/0006-surface-sam.patch"
-	# Seems like this was already aplied by genpatches
-	# eapply "${FILESDIR}/5.12/0007-surface-hotplug.patch"
+	eapply "${FILESDIR}/5.12/0007-surface-hotplug.patch"
 	eapply "${FILESDIR}/5.12/0008-surface-typecover.patch"
 	eapply "${FILESDIR}/5.12/0009-surface-go-touchscreen.patch"
 	eapply "${FILESDIR}/5.12/0010-cameras.patch"
