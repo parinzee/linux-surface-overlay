@@ -1,4 +1,4 @@
-From 387d86d89c025d203fe00f34b3950a21f7e56ee7 Mon Sep 17 00:00:00 2001
+From 020e40ca9aac0c3923ff37a4bea8a5506d296f4d Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 30 Jul 2020 13:21:53 +0200
 Subject: [PATCH] misc: mei: Add missing IPTS device IDs
@@ -36,36 +36,7 @@ index c3393b383e59..0098f98426c1 100644
 -- 
 2.33.0
 
-From d802995e4ceb341152e79d6d8d1d0e453becf4f0 Mon Sep 17 00:00:00 2001
-From: Dorian Stoll <dorian.stoll@tmsp.io>
-Date: Thu, 25 Feb 2021 09:37:47 +0100
-Subject: [PATCH] misc: mei: Remove client devices before shutting down bus
-
-Patchset: ipts
----
- drivers/misc/mei/init.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/misc/mei/init.c b/drivers/misc/mei/init.c
-index bcee77768b91..21ed765003e1 100644
---- a/drivers/misc/mei/init.c
-+++ b/drivers/misc/mei/init.c
-@@ -302,10 +302,10 @@ void mei_stop(struct mei_device *dev)
- {
- 	dev_dbg(dev->dev, "stopping the device.\n");
- 
-+	mei_cl_bus_remove_devices(dev);
- 	mutex_lock(&dev->device_lock);
- 	mei_set_devstate(dev, MEI_DEV_POWER_DOWN);
- 	mutex_unlock(&dev->device_lock);
--	mei_cl_bus_remove_devices(dev);
- 
- 	mei_cancel_work(dev);
- 
--- 
-2.33.0
-
-From 4f65f0975ecb44c038fab75e36aedb119f6dd9c0 Mon Sep 17 00:00:00 2001
+From 78d300eefba7b4c9c67b5e94ec075b5abdd0d184 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 6 Aug 2020 11:20:41 +0200
 Subject: [PATCH] misc: Add support for Intel Precise Touch & Stylus
@@ -82,7 +53,7 @@ Patchset: ipts
  drivers/misc/ipts/context.h   |  47 +++++
  drivers/misc/ipts/control.c   | 113 +++++++++++
  drivers/misc/ipts/control.h   |  24 +++
- drivers/misc/ipts/mei.c       | 127 +++++++++++++
+ drivers/misc/ipts/mei.c       | 125 ++++++++++++
  drivers/misc/ipts/protocol.h  | 347 ++++++++++++++++++++++++++++++++++
  drivers/misc/ipts/receiver.c  | 224 ++++++++++++++++++++++
  drivers/misc/ipts/receiver.h  |  16 ++
@@ -90,7 +61,7 @@ Patchset: ipts
  drivers/misc/ipts/resources.h |  17 ++
  drivers/misc/ipts/uapi.c      | 208 ++++++++++++++++++++
  drivers/misc/ipts/uapi.h      |  47 +++++
- 15 files changed, 1329 insertions(+)
+ 15 files changed, 1327 insertions(+)
  create mode 100644 drivers/misc/ipts/Kconfig
  create mode 100644 drivers/misc/ipts/Makefile
  create mode 100644 drivers/misc/ipts/context.h
@@ -106,17 +77,17 @@ Patchset: ipts
  create mode 100644 drivers/misc/ipts/uapi.h
 
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index fafa8b0d8099..c795c56e8d42 100644
+index f4fb5c52b863..0e5a2fe6bffe 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
-@@ -481,4 +481,5 @@ source "drivers/misc/ocxl/Kconfig"
- source "drivers/misc/cardreader/Kconfig"
+@@ -464,4 +464,5 @@ source "drivers/misc/cardreader/Kconfig"
  source "drivers/misc/habanalabs/Kconfig"
  source "drivers/misc/uacce/Kconfig"
+ source "drivers/misc/pvpanic/Kconfig"
 +source "drivers/misc/ipts/Kconfig"
  endmenu
 diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index d23231e73330..9e6e3e2f2ea9 100644
+index e92a56d4442f..7adce5540183 100644
 --- a/drivers/misc/Makefile
 +++ b/drivers/misc/Makefile
 @@ -57,3 +57,4 @@ obj-$(CONFIG_HABANA_AI)		+= habanalabs/
@@ -369,10 +340,10 @@ index 000000000000..2c44e9e0e99f
 +#endif /* _IPTS_CONTROL_H_ */
 diff --git a/drivers/misc/ipts/mei.c b/drivers/misc/ipts/mei.c
 new file mode 100644
-index 000000000000..b3805a91383d
+index 000000000000..59ecf13e00d2
 --- /dev/null
 +++ b/drivers/misc/ipts/mei.c
-@@ -0,0 +1,127 @@
+@@ -0,0 +1,125 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright (c) 2016 Intel Corporation
@@ -438,7 +409,7 @@ index 000000000000..b3805a91383d
 +	return ipts_control_start(ipts);
 +}
 +
-+static int ipts_mei_remove(struct mei_cl_device *cldev)
++static void ipts_mei_remove(struct mei_cl_device *cldev)
 +{
 +	int i;
 +	struct ipts_context *ipts = mei_cldev_get_drvdata(cldev);
@@ -454,8 +425,6 @@ index 000000000000..b3805a91383d
 +
 +	mei_cldev_disable(cldev);
 +	kfree(ipts);
-+
-+	return 0;
 +}
 +
 +static struct mei_cl_device_id ipts_mei_device_id_table[] = {
