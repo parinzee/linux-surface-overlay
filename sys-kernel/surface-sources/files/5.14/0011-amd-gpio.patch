@@ -1,4 +1,4 @@
-From 9177a637b985740a74a326a64cc728ba5c7b23d0 Mon Sep 17 00:00:00 2001
+From db59de04463e7daf9db5d6a94ecade027c386bf5 Mon Sep 17 00:00:00 2001
 From: Sachi King <nakato@nakato.io>
 Date: Sat, 29 May 2021 17:47:38 +1000
 Subject: [PATCH] ACPI: Add quirk for Surface Laptop 4 AMD missing irq 7
@@ -65,7 +65,7 @@ index e55e0c1fad8c..46dfad41b401 100644
 -- 
 2.33.1
 
-From 27c7ec7a39deea18a708e26f436c7819b422070c Mon Sep 17 00:00:00 2001
+From f36c217ee9cf09a3eeb0c4c869823fe4abe53c87 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 3 Jun 2021 14:04:26 +0200
 Subject: [PATCH] ACPI: Add AMD 13" Surface Laptop 4 model to irq 7 override
@@ -107,7 +107,7 @@ index 46dfad41b401..78bf6a097dc5 100644
 -- 
 2.33.1
 
-From 9e404375b63d371c13a10e3e7e6f71ba09d87293 Mon Sep 17 00:00:00 2001
+From fa0275eafbc5171767f6bc3fd9ca2dba2940ccc6 Mon Sep 17 00:00:00 2001
 From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
 Date: Tue, 31 Aug 2021 17:36:12 +0530
 Subject: [PATCH] pinctrl: amd: Add irq field data
@@ -173,7 +173,7 @@ index 95e763424042..1d4317073654 100644
 -- 
 2.33.1
 
-From fae801e2ab3a2ba06251435d7a9dd587dae55e86 Mon Sep 17 00:00:00 2001
+From d1b2d9b220465e1f8abb62f07f461b1c2374d66b Mon Sep 17 00:00:00 2001
 From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
 Date: Tue, 31 Aug 2021 17:36:13 +0530
 Subject: [PATCH] pinctrl: amd: Handle wake-up interrupt
@@ -220,7 +220,7 @@ index 79b8b7f91996..d19974aceb2e 100644
 -- 
 2.33.1
 
-From 7ec5c5e757046542c594805453642469b5f118f7 Mon Sep 17 00:00:00 2001
+From f429b5104b297a4b817df233dc77665c48c31184 Mon Sep 17 00:00:00 2001
 From: Sachi King <nakato@nakato.io>
 Date: Fri, 1 Oct 2021 21:19:09 +1000
 Subject: [PATCH] pinctrl: amd: disable and mask interrupts on probe
