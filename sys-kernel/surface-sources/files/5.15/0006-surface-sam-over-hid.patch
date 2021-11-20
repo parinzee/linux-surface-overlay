@@ -1,4 +1,4 @@
-From 93a1213b90b28361a0df7a96b087aa0ab2ff105f Mon Sep 17 00:00:00 2001
+From 51b8004cee8b77ca57d6e673f69ad01db027780f Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 25 Jul 2020 17:19:53 +0200
 Subject: [PATCH] i2c: acpi: Implement RawBytes read access
@@ -55,10 +55,10 @@ Patchset: surface-sam-over-hid
  1 file changed, 35 insertions(+)
 
 diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
-index 74925621f239..169713964358 100644
+index 546cc935e035..006e25a1b0d5 100644
 --- a/drivers/i2c/i2c-core-acpi.c
 +++ b/drivers/i2c/i2c-core-acpi.c
-@@ -571,6 +571,28 @@ static int acpi_gsb_i2c_write_bytes(struct i2c_client *client,
+@@ -603,6 +603,28 @@ static int acpi_gsb_i2c_write_bytes(struct i2c_client *client,
  	return (ret == 1) ? 0 : -EIO;
  }
  
@@ -87,7 +87,7 @@ index 74925621f239..169713964358 100644
  static acpi_status
  i2c_acpi_space_handler(u32 function, acpi_physical_address command,
  			u32 bits, u64 *value64,
-@@ -672,6 +694,19 @@ i2c_acpi_space_handler(u32 function, acpi_physical_address command,
+@@ -704,6 +726,19 @@ i2c_acpi_space_handler(u32 function, acpi_physical_address command,
  		}
  		break;
  
@@ -110,7 +110,7 @@ index 74925621f239..169713964358 100644
 -- 
 2.34.0
 
-From 6cbc6203a8929aacd63257100c9b7a2160adf7fd Mon Sep 17 00:00:00 2001
+From 7921182d0b377eda3ac117024da198f7e8f9f369 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 13 Feb 2021 16:41:18 +0100
 Subject: [PATCH] platform/surface: Add driver for Surface Book 1 dGPU switch

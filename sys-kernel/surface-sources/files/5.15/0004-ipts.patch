@@ -1,4 +1,4 @@
-From c0c0233e107398277401acbdc68263b75e4ec764 Mon Sep 17 00:00:00 2001
+From b7225aa16a7d1870585fe459d5c96662cf7841d0 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 30 Jul 2020 13:21:53 +0200
 Subject: [PATCH] misc: mei: Add missing IPTS device IDs
@@ -36,7 +36,7 @@ index 3a45aaf002ac..55b8ee30a03c 100644
 -- 
 2.34.0
 
-From d8fe8086fc5c53e0b4d24dbbcc1bb926482a9a78 Mon Sep 17 00:00:00 2001
+From 6bff305ba49497e93bf313553411f66963294f11 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 6 Aug 2020 11:20:41 +0200
 Subject: [PATCH] misc: Add support for Intel Precise Touch & Stylus
@@ -77,23 +77,23 @@ Patchset: ipts
  create mode 100644 drivers/misc/ipts/uapi.h
 
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index f4fb5c52b863..0e5a2fe6bffe 100644
+index 0f5a49fc7c9e..12b081bc875a 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
-@@ -464,4 +464,5 @@ source "drivers/misc/cardreader/Kconfig"
+@@ -487,4 +487,5 @@ source "drivers/misc/cardreader/Kconfig"
  source "drivers/misc/habanalabs/Kconfig"
  source "drivers/misc/uacce/Kconfig"
  source "drivers/misc/pvpanic/Kconfig"
 +source "drivers/misc/ipts/Kconfig"
  endmenu
 diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index e92a56d4442f..7adce5540183 100644
+index a086197af544..972cae33ba36 100644
 --- a/drivers/misc/Makefile
 +++ b/drivers/misc/Makefile
-@@ -57,3 +57,4 @@ obj-$(CONFIG_HABANA_AI)		+= habanalabs/
- obj-$(CONFIG_UACCE)		+= uacce/
+@@ -59,3 +59,4 @@ obj-$(CONFIG_UACCE)		+= uacce/
  obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
  obj-$(CONFIG_HISI_HIKEY_USB)	+= hisi_hikey_usb.o
+ obj-$(CONFIG_HI6421V600_IRQ)	+= hi6421v600-irq.o
 +obj-$(CONFIG_MISC_IPTS)		+= ipts/
 diff --git a/drivers/misc/ipts/Kconfig b/drivers/misc/ipts/Kconfig
 new file mode 100644

@@ -1,4 +1,4 @@
-From 0af29705fc39c579ece3a4985b27db35ae260487 Mon Sep 17 00:00:00 2001
+From d842cdee383af6ed4bf26c061795f45f7ae8bc3d Mon Sep 17 00:00:00 2001
 From: Tsuchiya Yuto <kitakar@gmail.com>
 Date: Sun, 18 Oct 2020 16:42:44 +0900
 Subject: [PATCH] (surface3-oemb) add DMI matches for Surface 3 with broken DMI

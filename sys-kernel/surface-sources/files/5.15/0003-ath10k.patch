@@ -1,4 +1,4 @@
-From 261da92e38fd3bd003c1e724edcc9322cc9b194f Mon Sep 17 00:00:00 2001
+From c53af7a0dc326f2106b010d1cc8cc68234ddd1c7 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 27 Feb 2021 00:45:52 +0100
 Subject: [PATCH] ath10k: Add module parameters to override board files

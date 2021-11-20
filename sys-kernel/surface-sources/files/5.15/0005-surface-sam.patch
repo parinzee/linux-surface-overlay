@@ -1,4 +1,4 @@
-From f6611d8d35d47d43b7aae454a36d69232c430958 Mon Sep 17 00:00:00 2001
+From 496d12ef24c37996450d8f9ea53b4a86440be323 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 28 Oct 2021 03:28:45 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add initial support
@@ -58,7 +58,7 @@ index 1679811eff50..e70f4c63554e 100644
 -- 
 2.34.0
 
-From 11a1289287c02cfec4efbdd63f85dea6d68284f2 Mon Sep 17 00:00:00 2001
+From 510309d4e8736c0c89929f433fe3af06880b9d8a Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 2 Jun 2021 03:34:06 +0200
 Subject: [PATCH] platform/surface: aggregator: Make client device removal more
@@ -81,10 +81,10 @@ Patchset: surface-sam
  4 files changed, 19 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/platform/surface/aggregator/bus.c b/drivers/platform/surface/aggregator/bus.c
-index 0169677c243e..eaa8626baead 100644
+index 0a40dd9c94ed..abbbb5b08b07 100644
 --- a/drivers/platform/surface/aggregator/bus.c
 +++ b/drivers/platform/surface/aggregator/bus.c
-@@ -376,27 +376,19 @@ static int ssam_remove_device(struct device *dev, void *_data)
+@@ -374,27 +374,19 @@ static int ssam_remove_device(struct device *dev, void *_data)
  }
  
  /**
@@ -140,7 +140,7 @@ index ed032c2cbdb2..6964ee84e79c 100644
  static inline void ssam_bus_unregister(void) {}
  
 diff --git a/drivers/platform/surface/aggregator/core.c b/drivers/platform/surface/aggregator/core.c
-index 279d9df19c01..124df0100a9f 100644
+index c61bbeeec2df..d384d36098c2 100644
 --- a/drivers/platform/surface/aggregator/core.c
 +++ b/drivers/platform/surface/aggregator/core.c
 @@ -22,6 +22,7 @@
@@ -151,7 +151,7 @@ index 279d9df19c01..124df0100a9f 100644
  
  #include "bus.h"
  #include "controller.h"
-@@ -742,7 +743,7 @@ static void ssam_serial_hub_remove(struct serdev_device *serdev)
+@@ -735,7 +736,7 @@ static void ssam_serial_hub_remove(struct serdev_device *serdev)
  	ssam_controller_lock(ctrl);
  
  	/* Remove all client devices. */
@@ -183,7 +183,7 @@ index f636c5310321..cc257097eb05 100644
 -- 
 2.34.0
 
-From 4a84f3d00f6fa73d2d423f737b31e574b5a5f30a Mon Sep 17 00:00:00 2001
+From d59bcb9435c687d11ff535bad01244c3d6bf77e8 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 02:06:38 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Use generic client
@@ -271,7 +271,7 @@ index e70f4c63554e..f6c639342b9d 100644
 -- 
 2.34.0
 
-From a801735c964f387be196a2d63d22b030667d592e Mon Sep 17 00:00:00 2001
+From 0e08c63523a2b62206efd172eb25022829cc4bce Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 02:07:33 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Rename device
@@ -322,7 +322,7 @@ index f6c639342b9d..ce2bd88feeaa 100644
 -- 
 2.34.0
 
-From b18657a4239bad3b786edb87311b130403a5a1fd Mon Sep 17 00:00:00 2001
+From 886b35d68277037c6ba36024bdb56d3a0b3a9582 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 00:24:47 +0200
 Subject: [PATCH] platform/surface: aggregator: Allow devices to be marked as
@@ -353,10 +353,10 @@ Patchset: surface-sam
  2 files changed, 48 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/platform/surface/aggregator/bus.c b/drivers/platform/surface/aggregator/bus.c
-index eaa8626baead..736cc43c9104 100644
+index abbbb5b08b07..2b003dcbfc4b 100644
 --- a/drivers/platform/surface/aggregator/bus.c
 +++ b/drivers/platform/surface/aggregator/bus.c
-@@ -390,6 +390,9 @@ void ssam_remove_clients(struct device *dev)
+@@ -388,6 +388,9 @@ void ssam_remove_clients(struct device *dev)
  }
  EXPORT_SYMBOL_GPL(ssam_remove_clients);
  
@@ -443,7 +443,7 @@ index cc257097eb05..491aa7e9f4bc 100644
 -- 
 2.34.0
 
-From f95d6ac5874db1bb881ffa482abc35f94bb13f5e Mon Sep 17 00:00:00 2001
+From c7bd6479e8b468ade6e0c15d5adabb3c1d8cb3f9 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 00:48:22 +0200
 Subject: [PATCH] platform/surface: aggregator: Allow notifiers to avoid
@@ -730,7 +730,7 @@ index 491aa7e9f4bc..16816c34da3e 100644
 -- 
 2.34.0
 
-From fe2e44cf86dee61dc84b56f76d432e8b87c2710a Mon Sep 17 00:00:00 2001
+From faf10ea439805d6624240df0e8d20c3b7de2fb0b Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 01:20:49 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Use client device
@@ -779,7 +779,7 @@ index ce2bd88feeaa..9f630e890ff7 100644
 -- 
 2.34.0
 
-From 05ded3f8005f37297e5c47821d43c24dc243250c Mon Sep 17 00:00:00 2001
+From ed9f7aa089ba6c8d6804ca9848ea2a36e3ebfd05 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 28 Oct 2021 03:37:06 +0200
 Subject: [PATCH] power/supply: surface_charger: Use client device wrappers for
@@ -819,7 +819,7 @@ index a060c36c7766..59182d55742d 100644
 -- 
 2.34.0
 
-From 18b5e32f9cf968307c604677143eea7dec7a8533 Mon Sep 17 00:00:00 2001
+From da9cc91d8244343358c7da76f22067b7ce130b20 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 28 Oct 2021 03:38:09 +0200
 Subject: [PATCH] power/supply: surface_battery: Use client device wrappers for
@@ -859,7 +859,7 @@ index 5ec2e6bb2465..540707882bb0 100644
 -- 
 2.34.0
 
-From 43c9f03affd1b3e0ecf04a370efe3ffa463a26c9 Mon Sep 17 00:00:00 2001
+From 096356dbf0b8fa07ae9fa04c0548a568db114bb1 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 01:33:02 +0200
 Subject: [PATCH] HID: surface-hid: Add support for hot-removal
@@ -970,7 +970,7 @@ index 5571e74abe91..d2e695e942b6 100644
 -- 
 2.34.0
 
-From 4b49b3f485689ddf1e9fbb4280c7ab4a8eb405ff Mon Sep 17 00:00:00 2001
+From bc7cfd188a34429c599f32a77d2dceeae0f8674d Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 31 Oct 2021 12:34:08 +0100
 Subject: [PATCH] platform/surface: aggregator: Add comment for KIP subsystem
@@ -1008,7 +1008,7 @@ index c3de43edcffa..d1efac85caf1 100644
 -- 
 2.34.0
 
-From e0933caec88e7140b057a8ce85a21b9797fd567c Mon Sep 17 00:00:00 2001
+From 7ca9a066f94cd01d1c2b2498e0ebd6e283b9649d Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 10 Oct 2021 23:56:23 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add KIP device hub
@@ -1322,7 +1322,7 @@ index 9f630e890ff7..4838ce6519a6 100644
 -- 
 2.34.0
 
-From 0fc4fd278cac0d5f3274656187d706f75ef48008 Mon Sep 17 00:00:00 2001
+From 1598a4c2c6eb031c15ae2bb3df90d34edae51b89 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 22:33:03 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for
@@ -1420,7 +1420,7 @@ index 4838ce6519a6..c0e29c0514df 100644
 -- 
 2.34.0
 
-From 50b107f14ef9e33f8510d726630138f69f2cf480 Mon Sep 17 00:00:00 2001
+From 1583027b968654e2cd12b6860423cb0fb75d5629 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 03:19:20 +0200
 Subject: [PATCH] platform/surface: Add KIP tablet-mode switch
@@ -1450,10 +1450,10 @@ Patchset: surface-sam
  create mode 100644 drivers/platform/surface/surface_kip_tablet_switch.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index d7b4f32875a9..5713585d060d 100644
+index 3b79fd441dde..84e43aae33c0 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -12357,6 +12357,12 @@ L:	platform-driver-x86@vger.kernel.org
+@@ -12468,6 +12468,12 @@ L:	platform-driver-x86@vger.kernel.org
  S:	Maintained
  F:	drivers/platform/surface/surface_hotplug.c
  
@@ -1764,7 +1764,7 @@ index 000000000000..458470067579
 -- 
 2.34.0
 
-From 2b1685c0a906769031590c7bfc0793bcc6fb9e98 Mon Sep 17 00:00:00 2001
+From 4109ded6a4d089e203e7b7c25984892f10e91f0a Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 22:33:03 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for tablet
@@ -1814,7 +1814,7 @@ index c0e29c0514df..eaf0054627a5 100644
 -- 
 2.34.0
 
-From fea397d2b114521a7e4cbc13998e451ebd9796ad Mon Sep 17 00:00:00 2001
+From 4be5a5872682bd890911a48cee79f7f583ff4686 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 28 Oct 2021 03:40:22 +0200
 Subject: [PATCH] power/supply: surface_battery: Add support for hot-removal
@@ -1855,7 +1855,7 @@ index 540707882bb0..ebf1f96e9a89 100644
 -- 
 2.34.0
 
-From 1610b9bfd7295dfdde50ffc777a7d88c6a7e9531 Mon Sep 17 00:00:00 2001
+From 9c7d3cfe6294ec72a2ce9c97c040a46ada4473c3 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 31 Oct 2021 18:07:39 +0100
 Subject: [PATCH] platform/surface: aggregator_registry: Use KIP hub for
@@ -1993,7 +1993,7 @@ index eaf0054627a5..d17f656b2dad 100644
 -- 
 2.34.0
 
-From 236abbbef8f8a528621e839383e357f50591cb7c Mon Sep 17 00:00:00 2001
+From 4317a9568b04494977bf91edab24a0148aaa9329 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 31 Oct 2021 18:09:53 +0100
 Subject: [PATCH] platform/surface: aggregator_registry: Remove base hub driver

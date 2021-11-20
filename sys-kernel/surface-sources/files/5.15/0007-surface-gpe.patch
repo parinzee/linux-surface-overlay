@@ -1,4 +1,4 @@
-From 7e5f221e11e90bb48db72531ac144d7bdfc9e9a1 Mon Sep 17 00:00:00 2001
+From e5d18337cb2a055e3f19917a5a2587613ef76745 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 10 Oct 2021 00:02:44 +0200
 Subject: [PATCH] platform/surface: gpe: Add support for Surface Laptop Studio
@@ -46,7 +46,7 @@ index 86f6991b1215..c1775db29efb 100644
 -- 
 2.34.0
 
-From c91d2440570c52e33c4a5c518452413d25e2cb21 Mon Sep 17 00:00:00 2001
+From 7bf49aa10c27435251ff823e2d08db5fc7dd877b Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 00:56:11 +0200
 Subject: [PATCH] platform/surface: gpe: Add support for Surface Pro 8
