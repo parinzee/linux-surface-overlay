@@ -20,4 +20,4 @@ jobs:
       run: pip3 install pkgcheck
     
     - name: Run pkgcheck
-      run: pkgcheck ci
+      run: pkgcheck scan
