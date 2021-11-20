@@ -13,5 +13,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Setup Python
+      uses: actions/setup-python@v2
+    
+    - name: Install pkgcheck
+      run: pip3 install pkgcheck
+    
     - name: Run pkgcheck
-      uses: pkgcore/pkgcheck-action@v1
+      run: pkgcheck ci
