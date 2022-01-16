@@ -1,4 +1,4 @@
-From 6494ee60869fd7709226f1f31bbd930ca19d9072 Mon Sep 17 00:00:00 2001
+From 4cc56a3e2ebda9e7f2abb89b489c5b9497e4b371 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 30 Jul 2020 13:21:53 +0200
 Subject: [PATCH] misc: mei: Add missing IPTS device IDs
@@ -36,7 +36,7 @@ index 3a45aaf002ac..55b8ee30a03c 100644
 -- 
 2.34.1
 
-From ca4dd939db867a78340198a8c20532d5c7ab82f7 Mon Sep 17 00:00:00 2001
+From f4e86071db79899b854afd5cb2647c5343d270e8 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 6 Aug 2020 11:20:41 +0200
 Subject: [PATCH] misc: Add support for Intel Precise Touch & Stylus

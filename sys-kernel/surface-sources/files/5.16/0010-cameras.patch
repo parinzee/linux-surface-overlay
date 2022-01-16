@@ -1,4 +1,4 @@
-From 00ecb5c60a5bb401198d11f568f5a6289a41f5f8 Mon Sep 17 00:00:00 2001
+From 353f3287f282fb0deb8114b0a928f84185891eb8 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Mon, 5 Apr 2021 23:56:53 +0100
 Subject: [PATCH] media: ipu3-cio2: Toggle sensor streaming in pm runtime ops
@@ -16,10 +16,10 @@ Patchset: cameras
  1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/pci/intel/ipu3/ipu3-cio2-main.c b/drivers/media/pci/intel/ipu3/ipu3-cio2-main.c
-index 47db0ee0fcbf..7bb86e246ebe 100644
+index 356ea966cf8d..76fd4e6e8e46 100644
 --- a/drivers/media/pci/intel/ipu3/ipu3-cio2-main.c
 +++ b/drivers/media/pci/intel/ipu3/ipu3-cio2-main.c
-@@ -1973,12 +1973,19 @@ static int __maybe_unused cio2_suspend(struct device *dev)
+@@ -1966,12 +1966,19 @@ static int __maybe_unused cio2_suspend(struct device *dev)
  	struct pci_dev *pci_dev = to_pci_dev(dev);
  	struct cio2_device *cio2 = pci_get_drvdata(pci_dev);
  	struct cio2_queue *q = cio2->cur_queue;
@@ -39,7 +39,7 @@ index 47db0ee0fcbf..7bb86e246ebe 100644
  	cio2_hw_exit(cio2, q);
  	synchronize_irq(pci_dev->irq);
  
-@@ -2013,8 +2020,14 @@ static int __maybe_unused cio2_resume(struct device *dev)
+@@ -2005,8 +2012,14 @@ static int __maybe_unused cio2_resume(struct device *dev)
  	}
  
  	r = cio2_hw_init(cio2, q);
@@ -58,7 +58,7 @@ index 47db0ee0fcbf..7bb86e246ebe 100644
 -- 
 2.34.1
 
-From 162dd2fdcaa9936c7b0bc22e1cacb6fdad220889 Mon Sep 17 00:00:00 2001
+From 5d51820260e5d0a777fd5111fa5491fe0e4da450 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Mon, 5 Apr 2021 23:56:54 +0100
 Subject: [PATCH] media: i2c: Add support for ov5693 sensor
@@ -84,10 +84,10 @@ Patchset: cameras
  create mode 100644 drivers/media/i2c/ov5693.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 84e43aae33c0..53fd78cf9fd0 100644
+index d69fdf5aadec..2eeffdd634c2 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -13878,6 +13878,13 @@ S:	Maintained
+@@ -14117,6 +14117,13 @@ S:	Maintained
  T:	git git://linuxtv.org/media_tree.git
  F:	drivers/media/i2c/ov5675.c
  
@@ -102,10 +102,10 @@ index 84e43aae33c0..53fd78cf9fd0 100644
  M:	Shunqian Zheng <zhengsq@rock-chips.com>
  L:	linux-media@vger.kernel.org
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 6157e73eef24..bec9b7fd3b4a 100644
+index d6a5d4ca439a..8761a90a7a86 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
-@@ -1043,6 +1043,17 @@ config VIDEO_OV5675
+@@ -1058,6 +1058,17 @@ config VIDEO_OV5675
  	  To compile this driver as a module, choose M here: the
  	  module will be called ov5675.
  
@@ -124,7 +124,7 @@ index 6157e73eef24..bec9b7fd3b4a 100644
  	tristate "OmniVision OV5695 sensor support"
  	depends on I2C && VIDEO_V4L2
 diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 83268f20aa3a..6b910ba2dde2 100644
+index 4d4fe08d7a6a..b01f6cd05ee8 100644
 --- a/drivers/media/i2c/Makefile
 +++ b/drivers/media/i2c/Makefile
 @@ -75,6 +75,7 @@ obj-$(CONFIG_VIDEO_OV5647) += ov5647.o
@@ -1701,300 +1701,7 @@ index 000000000000..9499ee10f56c
 -- 
 2.34.1
 
-From 136eeb8f124636d10ebe2af30a0420578744fd83 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Fabian=20W=C3=BCthrich?= <me@fabwu.ch>
-Date: Fri, 22 Jan 2021 20:58:13 +0100
-Subject: [PATCH] cio2-bridge: Parse sensor orientation and rotation
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-The sensor orientation is read from the _PLC ACPI buffer and converted
-to a v4l2 format.
-
-See https://uefi.org/sites/default/files/resources/ACPI_6_3_final_Jan30.pdf
-page 351 for a definition of the Panel property.
-
-The sensor rotation is read from the SSDB ACPI buffer and converted into
-degrees.
-
-Signed-off-by: Fabian Wüthrich <me@fabwu.ch>
-Patchset: cameras
----
- drivers/media/pci/intel/ipu3/cio2-bridge.c | 45 ++++++++++++++++++++--
- drivers/media/pci/intel/ipu3/cio2-bridge.h |  3 ++
- 2 files changed, 44 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu3/cio2-bridge.c b/drivers/media/pci/intel/ipu3/cio2-bridge.c
-index 30d29b96a339..77c97bf6521e 100644
---- a/drivers/media/pci/intel/ipu3/cio2-bridge.c
-+++ b/drivers/media/pci/intel/ipu3/cio2-bridge.c
-@@ -29,6 +29,7 @@ static const struct cio2_sensor_config cio2_supported_sensors[] = {
- static const struct cio2_property_names prop_names = {
- 	.clock_frequency = "clock-frequency",
- 	.rotation = "rotation",
-+	.orientation = "orientation",
- 	.bus_type = "bus-type",
- 	.data_lanes = "data-lanes",
- 	.remote_endpoint = "remote-endpoint",
-@@ -72,11 +73,36 @@ static int cio2_bridge_read_acpi_buffer(struct acpi_device *adev, char *id,
- 	return ret;
- }
- 
-+static u32 cio2_bridge_parse_rotation(u8 rotation)
-+{
-+	if (rotation == 1)
-+		return 180;
-+	return 0;
-+}
-+
-+static enum v4l2_fwnode_orientation cio2_bridge_parse_orientation(u8 panel)
-+{
-+	switch (panel) {
-+	case 4:
-+		return V4L2_FWNODE_ORIENTATION_FRONT;
-+	case 5:
-+		return V4L2_FWNODE_ORIENTATION_BACK;
-+	default:
-+		return V4L2_FWNODE_ORIENTATION_EXTERNAL;
-+	}
-+}
-+
- static void cio2_bridge_create_fwnode_properties(
- 	struct cio2_sensor *sensor,
- 	struct cio2_bridge *bridge,
- 	const struct cio2_sensor_config *cfg)
- {
-+	u32 rotation;
-+	enum v4l2_fwnode_orientation orientation;
-+
-+	rotation = cio2_bridge_parse_rotation(sensor->ssdb.degree);
-+	orientation = cio2_bridge_parse_orientation(sensor->pld->panel);
-+
- 	sensor->prop_names = prop_names;
- 
- 	sensor->local_ref[0] = SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_CIO2_ENDPOINT]);
-@@ -85,9 +111,12 @@ static void cio2_bridge_create_fwnode_properties(
- 	sensor->dev_properties[0] = PROPERTY_ENTRY_U32(
- 					sensor->prop_names.clock_frequency,
- 					sensor->ssdb.mclkspeed);
--	sensor->dev_properties[1] = PROPERTY_ENTRY_U8(
-+	sensor->dev_properties[1] = PROPERTY_ENTRY_U32(
- 					sensor->prop_names.rotation,
--					sensor->ssdb.degree);
-+					rotation);
-+	sensor->dev_properties[2] = PROPERTY_ENTRY_U32(
-+					sensor->prop_names.orientation,
-+					orientation);
- 
- 	sensor->ep_properties[0] = PROPERTY_ENTRY_U32(
- 					sensor->prop_names.bus_type,
-@@ -159,6 +188,7 @@ static void cio2_bridge_unregister_sensors(struct cio2_bridge *bridge)
- 	for (i = 0; i < bridge->n_sensors; i++) {
- 		sensor = &bridge->sensors[i];
- 		software_node_unregister_nodes(sensor->swnodes);
-+		ACPI_FREE(sensor->pld);
- 		acpi_dev_put(sensor->adev);
- 	}
- }
-@@ -170,6 +200,7 @@ static int cio2_bridge_connect_sensor(const struct cio2_sensor_config *cfg,
- 	struct fwnode_handle *fwnode;
- 	struct cio2_sensor *sensor;
- 	struct acpi_device *adev;
-+	acpi_status status;
- 	int ret;
- 
- 	for_each_acpi_dev_match(adev, cfg->hid, NULL, -1) {
-@@ -191,11 +222,15 @@ static int cio2_bridge_connect_sensor(const struct cio2_sensor_config *cfg,
- 		if (ret)
- 			goto err_put_adev;
- 
-+		status = acpi_get_physical_device_location(adev->handle, &sensor->pld);
-+		if (ACPI_FAILURE(status))
-+			goto err_put_adev;
-+
- 		if (sensor->ssdb.lanes > CIO2_MAX_LANES) {
- 			dev_err(&adev->dev,
- 				"Number of lanes in SSDB is invalid\n");
- 			ret = -EINVAL;
--			goto err_put_adev;
-+			goto err_free_pld;
- 		}
- 
- 		cio2_bridge_create_fwnode_properties(sensor, bridge, cfg);
-@@ -203,7 +238,7 @@ static int cio2_bridge_connect_sensor(const struct cio2_sensor_config *cfg,
- 
- 		ret = software_node_register_nodes(sensor->swnodes);
- 		if (ret)
--			goto err_put_adev;
-+			goto err_free_pld;
- 
- 		fwnode = software_node_fwnode(&sensor->swnodes[
- 						      SWNODE_SENSOR_HID]);
-@@ -225,6 +260,8 @@ static int cio2_bridge_connect_sensor(const struct cio2_sensor_config *cfg,
- 
- err_free_swnodes:
- 	software_node_unregister_nodes(sensor->swnodes);
-+err_free_pld:
-+	ACPI_FREE(sensor->pld);
- err_put_adev:
- 	acpi_dev_put(adev);
- 	return ret;
-diff --git a/drivers/media/pci/intel/ipu3/cio2-bridge.h b/drivers/media/pci/intel/ipu3/cio2-bridge.h
-index dd0ffcafa489..924d99d20328 100644
---- a/drivers/media/pci/intel/ipu3/cio2-bridge.h
-+++ b/drivers/media/pci/intel/ipu3/cio2-bridge.h
-@@ -80,6 +80,7 @@ struct cio2_sensor_ssdb {
- struct cio2_property_names {
- 	char clock_frequency[16];
- 	char rotation[9];
-+	char orientation[12];
- 	char bus_type[9];
- 	char data_lanes[11];
- 	char remote_endpoint[16];
-@@ -106,6 +107,8 @@ struct cio2_sensor {
- 	struct cio2_node_names node_names;
- 
- 	struct cio2_sensor_ssdb ssdb;
-+	struct acpi_pld_info *pld;
-+
- 	struct cio2_property_names prop_names;
- 	struct property_entry ep_properties[5];
- 	struct property_entry dev_properties[3];
--- 
-2.34.1
-
-From 88a274a25883f64304c4d14fa4efbf5ec9e6fe36 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Fabian=20W=C3=BCthrich?= <me@fabwu.ch>
-Date: Sun, 24 Jan 2021 11:07:42 +0100
-Subject: [PATCH] cio2-bridge: Use macros and add warnings
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Use macros for the _PLD panel as defined in the ACPI spec 6.3 and emit
-a warning if we see an unknown value.
-
-Signed-off-by: Fabian Wüthrich <me@fabwu.ch>
-Patchset: cameras
----
- drivers/media/pci/intel/ipu3/cio2-bridge.c | 33 ++++++++++++++++------
- drivers/media/pci/intel/ipu3/cio2-bridge.h | 13 +++++++++
- 2 files changed, 37 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu3/cio2-bridge.c b/drivers/media/pci/intel/ipu3/cio2-bridge.c
-index 77c97bf6521e..7e582135dfb8 100644
---- a/drivers/media/pci/intel/ipu3/cio2-bridge.c
-+++ b/drivers/media/pci/intel/ipu3/cio2-bridge.c
-@@ -73,21 +73,36 @@ static int cio2_bridge_read_acpi_buffer(struct acpi_device *adev, char *id,
- 	return ret;
- }
- 
--static u32 cio2_bridge_parse_rotation(u8 rotation)
-+static u32 cio2_bridge_parse_rotation(struct cio2_sensor *sensor)
- {
--	if (rotation == 1)
-+	switch (sensor->ssdb.degree) {
-+	case CIO2_SENSOR_ROTATION_NORMAL:
-+		return 0;
-+	case CIO2_SENSOR_ROTATION_INVERTED:
- 		return 180;
--	return 0;
-+	default:
-+		dev_warn(&sensor->adev->dev,
-+			 "Unknown rotation %d. Assume 0 degree rotation\n",
-+			 sensor->ssdb.degree);
-+		return 0;
-+	}
- }
- 
--static enum v4l2_fwnode_orientation cio2_bridge_parse_orientation(u8 panel)
-+static enum v4l2_fwnode_orientation cio2_bridge_parse_orientation(struct cio2_sensor *sensor)
- {
--	switch (panel) {
--	case 4:
-+	switch (sensor->pld->panel) {
-+	case CIO2_PLD_PANEL_FRONT:
- 		return V4L2_FWNODE_ORIENTATION_FRONT;
--	case 5:
-+	case CIO2_PLD_PANEL_BACK:
- 		return V4L2_FWNODE_ORIENTATION_BACK;
-+	case CIO2_PLD_PANEL_TOP:
-+	case CIO2_PLD_PANEL_LEFT:
-+	case CIO2_PLD_PANEL_RIGHT:
-+	case CIO2_PLD_PANEL_UNKNOWN:
-+		return V4L2_FWNODE_ORIENTATION_EXTERNAL;
- 	default:
-+		dev_warn(&sensor->adev->dev, "Unknown _PLD panel value %d\n",
-+			 sensor->pld->panel);
- 		return V4L2_FWNODE_ORIENTATION_EXTERNAL;
- 	}
- }
-@@ -100,8 +115,8 @@ static void cio2_bridge_create_fwnode_properties(
- 	u32 rotation;
- 	enum v4l2_fwnode_orientation orientation;
- 
--	rotation = cio2_bridge_parse_rotation(sensor->ssdb.degree);
--	orientation = cio2_bridge_parse_orientation(sensor->pld->panel);
-+	rotation = cio2_bridge_parse_rotation(sensor);
-+	orientation = cio2_bridge_parse_orientation(sensor);
- 
- 	sensor->prop_names = prop_names;
- 
-diff --git a/drivers/media/pci/intel/ipu3/cio2-bridge.h b/drivers/media/pci/intel/ipu3/cio2-bridge.h
-index 924d99d20328..e1e388cc9f45 100644
---- a/drivers/media/pci/intel/ipu3/cio2-bridge.h
-+++ b/drivers/media/pci/intel/ipu3/cio2-bridge.h
-@@ -12,6 +12,19 @@
- #define CIO2_MAX_LANES				4
- #define MAX_NUM_LINK_FREQS			3
- 
-+/* Values are estimated guesses as we don't have a spec */
-+#define CIO2_SENSOR_ROTATION_NORMAL		0
-+#define CIO2_SENSOR_ROTATION_INVERTED		1
-+
-+/* Panel position defined in _PLD section of ACPI Specification 6.3 */
-+#define CIO2_PLD_PANEL_TOP			0
-+#define CIO2_PLD_PANEL_BOTTOM			1
-+#define CIO2_PLD_PANEL_LEFT			2
-+#define CIO2_PLD_PANEL_RIGHT			3
-+#define CIO2_PLD_PANEL_FRONT			4
-+#define CIO2_PLD_PANEL_BACK			5
-+#define CIO2_PLD_PANEL_UNKNOWN			6
-+
- #define CIO2_SENSOR_CONFIG(_HID, _NR, ...)	\
- 	(const struct cio2_sensor_config) {	\
- 		.hid = _HID,			\
--- 
-2.34.1
-
-From c08f359741a191fc8bd6f19409cddf73b0ab7711 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Fabian=20W=C3=BCthrich?= <me@fabwu.ch>
-Date: Thu, 6 May 2021 07:52:44 +0200
-Subject: [PATCH] cio2-bridge: Use correct dev_properties size
-
-Patchset: cameras
----
- drivers/media/pci/intel/ipu3/cio2-bridge.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/pci/intel/ipu3/cio2-bridge.h b/drivers/media/pci/intel/ipu3/cio2-bridge.h
-index e1e388cc9f45..deaf5804f70d 100644
---- a/drivers/media/pci/intel/ipu3/cio2-bridge.h
-+++ b/drivers/media/pci/intel/ipu3/cio2-bridge.h
-@@ -124,7 +124,7 @@ struct cio2_sensor {
- 
- 	struct cio2_property_names prop_names;
- 	struct property_entry ep_properties[5];
--	struct property_entry dev_properties[3];
-+	struct property_entry dev_properties[4];
- 	struct property_entry cio2_properties[3];
- 	struct software_node_ref_args local_ref[1];
- 	struct software_node_ref_args remote_ref[1];
--- 
-2.34.1
-
-From 4c4be6ec52117d2e126257c793b04b31e1d74bfd Mon Sep 17 00:00:00 2001
+From e5a5d1e45e7c029ac1fa3c37a0c2cb65137b7b11 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Thu, 20 May 2021 23:31:04 +0100
 Subject: [PATCH] media: i2c: Fix vertical flip in ov5693
@@ -2029,7 +1736,7 @@ index 9499ee10f56c..c558f9b48c83 100644
 -- 
 2.34.1
 
-From 26e05c5625d90882ccc212fc1f5845e3e61e205f Mon Sep 17 00:00:00 2001
+From 0006fe98c53fd00ecd373057822f222c37eebca5 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Fri, 9 Jul 2021 16:39:18 +0100
 Subject: [PATCH] media: i2c: Add ACPI support to ov8865
@@ -2080,7 +1787,7 @@ index ce50f3ea87b8..7626c8608f8f 100644
 -- 
 2.34.1
 
-From 904e8118d8e679ab6183e43f0de4589d5cda277b Mon Sep 17 00:00:00 2001
+From 402b2099a17351fc300d2a0453282df6b76fd3d8 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sat, 10 Jul 2021 21:20:17 +0100
 Subject: [PATCH] media: i2c: Fix incorrect value in comment
@@ -2111,7 +1818,7 @@ index 7626c8608f8f..8e3f8a554452 100644
 -- 
 2.34.1
 
-From 61a682fcbbc4c4506811c587c3e5a5eb78335e46 Mon Sep 17 00:00:00 2001
+From 0e74b1496706ee4e06dd073bf5cbcf850e0db8b6 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sat, 10 Jul 2021 22:21:52 +0100
 Subject: [PATCH] media: i2c: Defer probe if not endpoint found
@@ -2148,7 +1855,7 @@ index 8e3f8a554452..9bc8d5d8199b 100644
 -- 
 2.34.1
 
-From 81e52e8e870b2dd7622fd2e7626f0869ea4e2068 Mon Sep 17 00:00:00 2001
+From 3283a3bd720e70e376d1c1323240239969096883 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sat, 10 Jul 2021 22:00:25 +0100
 Subject: [PATCH] media: i2c: Support 19.2MHz input clock in ov8865
@@ -2507,7 +2214,7 @@ index 9bc8d5d8199b..4ddc1b277cc0 100644
 -- 
 2.34.1
 
-From 3a77e00a37ba4a6b0d29844f5f4073dca0093ce4 Mon Sep 17 00:00:00 2001
+From 2397116765c8feae2aa35ae67cb49f8279cc921a Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sat, 10 Jul 2021 22:19:10 +0100
 Subject: [PATCH] media: i2c: Add .get_selection() support to ov8865
@@ -2612,7 +2319,7 @@ index 4ddc1b277cc0..0f2776390a8e 100644
 -- 
 2.34.1
 
-From 36937f23f79dcef22edf507a068584db72157fa0 Mon Sep 17 00:00:00 2001
+From 1ba730c1776aadbb35ef3cffcaa5471e7a9578c5 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sat, 10 Jul 2021 22:34:43 +0100
 Subject: [PATCH] media: i2c: Switch control to V4L2_CID_ANALOGUE_GAIN
@@ -2665,7 +2372,7 @@ index 0f2776390a8e..a832938c33b6 100644
 -- 
 2.34.1
 
-From eca95f4d00c5846723c63bb42330898de62b4db3 Mon Sep 17 00:00:00 2001
+From 62289693d7fab63920cd67449f81d6270babb248 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Mon, 12 Jul 2021 22:54:56 +0100
 Subject: [PATCH] media: i2c: Add vblank control to ov8865
@@ -2775,7 +2482,7 @@ index a832938c33b6..f741c0713ca4 100644
 -- 
 2.34.1
 
-From 2d12594800c2b827748872a0a8c03419b2330e54 Mon Sep 17 00:00:00 2001
+From 476dcf4df3b82737854f7e941deba7e485f67aca Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Tue, 13 Jul 2021 23:40:33 +0100
 Subject: [PATCH] media: i2c: Add hblank control to ov8865
@@ -2845,7 +2552,7 @@ index f741c0713ca4..4b18cc80f985 100644
 -- 
 2.34.1
 
-From 3a39fd9c90eb75cb51f82d7c296824946b7e73a1 Mon Sep 17 00:00:00 2001
+From bcb51e4d7e546e03ffa8b90abeb60d50815fa392 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Wed, 20 Oct 2021 22:43:54 +0100
 Subject: [PATCH] media: i2c: Update HTS values in ov8865
@@ -3021,7 +2728,7 @@ index 4b18cc80f985..1b8674152750 100644
 -- 
 2.34.1
 
-From 85e12a7eb1520817e1604dcb37e096d341f4f8b7 Mon Sep 17 00:00:00 2001
+From 2f7d7653db59ffd05403a164ac41638da582f3f3 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Tue, 13 Jul 2021 23:43:17 +0100
 Subject: [PATCH] media: i2c: cap exposure at height + vblank in ov8865
@@ -3104,7 +2811,7 @@ index 1b8674152750..99548ad15dcd 100644
 -- 
 2.34.1
 
-From 65d323e63c37bcfb00474145cabda06c87c120e5 Mon Sep 17 00:00:00 2001
+From 8bbf3a86534f5fa56196683084d68cb65e087571 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Fri, 16 Jul 2021 22:56:15 +0100
 Subject: [PATCH] media: i2c: Add controls from fwnode to ov8865
@@ -3149,7 +2856,7 @@ index 99548ad15dcd..dfb5095ef16b 100644
 -- 
 2.34.1
 
-From d27d69decc99364341abe181a1d8eb73a3634d44 Mon Sep 17 00:00:00 2001
+From d5b0072bb2bf01b521bfcf0fd753afdbb9faf773 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Fri, 16 Jul 2021 00:00:54 +0100
 Subject: [PATCH] media: i2c: Switch exposure control unit to lines
@@ -3196,7 +2903,7 @@ index dfb5095ef16b..5f19d82554df 100644
 -- 
 2.34.1
 
-From 17f766c846ddc7b94495123d4d00db1407b29047 Mon Sep 17 00:00:00 2001
+From 356aa1b9970681877ec41c3070864b458312fb76 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Tue, 24 Aug 2021 22:39:02 +0100
 Subject: [PATCH] media: i2c: Re-order runtime pm initialisation
@@ -3232,7 +2939,7 @@ index 5f19d82554df..18b5f1e8e9a7 100644
 -- 
 2.34.1
 
-From cc4fefcb7a85234a08c12581045aa305caa41d6f Mon Sep 17 00:00:00 2001
+From 0cf665f87ff80019f95aabe51c74e8c52d88dfbf Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Tue, 24 Aug 2021 23:17:39 +0100
 Subject: [PATCH] media: i2c: Use dev_err_probe() in ov8865
@@ -3315,7 +3022,7 @@ index 18b5f1e8e9a7..19e6bebf340d 100644
 -- 
 2.34.1
 
-From 0adc344253782bb322bfafe217954c24f8adbd52 Mon Sep 17 00:00:00 2001
+From 0fc879df264184696fad72f153d179c55cfa81fe Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Wed, 14 Jul 2021 00:05:04 +0100
 Subject: [PATCH] media: ipu3-cio2: Add INT347A to cio2-bridge
@@ -3333,7 +3040,7 @@ Patchset: cameras
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/media/pci/intel/ipu3/cio2-bridge.c b/drivers/media/pci/intel/ipu3/cio2-bridge.c
-index 7e582135dfb8..0132f0bd9b41 100644
+index 67c467d3c81f..0c1c5d8d8dfd 100644
 --- a/drivers/media/pci/intel/ipu3/cio2-bridge.c
 +++ b/drivers/media/pci/intel/ipu3/cio2-bridge.c
 @@ -22,6 +22,8 @@
@@ -3348,7 +3055,7 @@ index 7e582135dfb8..0132f0bd9b41 100644
 -- 
 2.34.1
 
-From 9d435a1f47fb024ae4dd9f2161467105b65d40af Mon Sep 17 00:00:00 2001
+From 68ba64c731b9df3d9c0d76ab4c8d9c06e003cee3 Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Thu, 7 Oct 2021 15:34:52 +0200
 Subject: [PATCH] media: i2c: ov8865: Fix lockdep error
@@ -3394,7 +3101,7 @@ index 19e6bebf340d..d5af8aedf5e8 100644
 -- 
 2.34.1
 
-From 54785dd485c28fe1e8bae6b954f7c184324ede71 Mon Sep 17 00:00:00 2001
+From ad795bc149f99e991391abcbe26a578f4b4b50dd Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:56:57 +0200
 Subject: [PATCH] ACPI: delay enumeration of devices with a _DEP pointing to an
@@ -3455,10 +3162,10 @@ Patchset: cameras
  2 files changed, 38 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-index 5b54c80b9d32..efee6ee91c8f 100644
+index 2c80765670bc..6385024170ac 100644
 --- a/drivers/acpi/scan.c
 +++ b/drivers/acpi/scan.c
-@@ -796,6 +796,12 @@ static const char * const acpi_ignore_dep_ids[] = {
+@@ -797,6 +797,12 @@ static const char * const acpi_ignore_dep_ids[] = {
  	NULL
  };
  
@@ -3471,7 +3178,7 @@ index 5b54c80b9d32..efee6ee91c8f 100644
  static struct acpi_device *acpi_bus_get_parent(acpi_handle handle)
  {
  	struct acpi_device *device = NULL;
-@@ -1757,8 +1763,12 @@ static void acpi_scan_dep_init(struct acpi_device *adev)
+@@ -1762,8 +1768,12 @@ static void acpi_scan_dep_init(struct acpi_device *adev)
  	struct acpi_dep_data *dep;
  
  	list_for_each_entry(dep, &acpi_dep_list, node) {
@@ -3485,7 +3192,7 @@ index 5b54c80b9d32..efee6ee91c8f 100644
  	}
  }
  
-@@ -1962,7 +1972,7 @@ static u32 acpi_scan_check_dep(acpi_handle handle, bool check_dep)
+@@ -1967,7 +1977,7 @@ static u32 acpi_scan_check_dep(acpi_handle handle, bool check_dep)
  	for (count = 0, i = 0; i < dep_devices.count; i++) {
  		struct acpi_device_info *info;
  		struct acpi_dep_data *dep;
@@ -3494,7 +3201,7 @@ index 5b54c80b9d32..efee6ee91c8f 100644
  
  		status = acpi_get_object_info(dep_devices.handles[i], &info);
  		if (ACPI_FAILURE(status)) {
-@@ -1971,6 +1981,7 @@ static u32 acpi_scan_check_dep(acpi_handle handle, bool check_dep)
+@@ -1976,6 +1986,7 @@ static u32 acpi_scan_check_dep(acpi_handle handle, bool check_dep)
  		}
  
  		skip = acpi_info_matches_ids(info, acpi_ignore_dep_ids);
@@ -3502,7 +3209,7 @@ index 5b54c80b9d32..efee6ee91c8f 100644
  		kfree(info);
  
  		if (skip)
-@@ -1984,6 +1995,7 @@ static u32 acpi_scan_check_dep(acpi_handle handle, bool check_dep)
+@@ -1989,6 +2000,7 @@ static u32 acpi_scan_check_dep(acpi_handle handle, bool check_dep)
  
  		dep->supplier = dep_devices.handles[i];
  		dep->consumer = handle;
@@ -3510,7 +3217,7 @@ index 5b54c80b9d32..efee6ee91c8f 100644
  
  		mutex_lock(&acpi_dep_list_lock);
  		list_add_tail(&dep->node , &acpi_dep_list);
-@@ -2071,6 +2083,9 @@ static acpi_status acpi_bus_check_add_2(acpi_handle handle, u32 lvl_not_used,
+@@ -2076,6 +2088,9 @@ static acpi_status acpi_bus_check_add_2(acpi_handle handle, u32 lvl_not_used,
  
  static void acpi_default_enumeration(struct acpi_device *device)
  {
@@ -3520,7 +3227,7 @@ index 5b54c80b9d32..efee6ee91c8f 100644
  	/*
  	 * Do not enumerate devices with enumeration_by_parent flag set as
  	 * they will be enumerated by their respective parents.
-@@ -2313,6 +2328,23 @@ void acpi_dev_clear_dependencies(struct acpi_device *supplier)
+@@ -2318,6 +2333,23 @@ void acpi_dev_clear_dependencies(struct acpi_device *supplier)
  }
  EXPORT_SYMBOL_GPL(acpi_dev_clear_dependencies);
  
@@ -3545,7 +3252,7 @@ index 5b54c80b9d32..efee6ee91c8f 100644
   * acpi_dev_get_first_consumer_dev - Return ACPI device dependent on @supplier
   * @supplier: Pointer to the dependee device
 diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
-index 13d93371790e..2da53b7b4965 100644
+index 480f9207a4c6..2f93ecf05dac 100644
 --- a/include/acpi/acpi_bus.h
 +++ b/include/acpi/acpi_bus.h
 @@ -202,7 +202,8 @@ struct acpi_device_flags {
@@ -3558,7 +3265,7 @@ index 13d93371790e..2da53b7b4965 100644
  };
  
  /* File System */
-@@ -284,6 +285,7 @@ struct acpi_dep_data {
+@@ -285,6 +286,7 @@ struct acpi_dep_data {
  	struct list_head node;
  	acpi_handle supplier;
  	acpi_handle consumer;
@@ -3577,7 +3284,7 @@ index 13d93371790e..2da53b7b4965 100644
 -- 
 2.34.1
 
-From 5a6287f4010feda3c17ae04fef416960206c7823 Mon Sep 17 00:00:00 2001
+From 6dbc7e9bbbc1aff5f7e16f2bb5f8e22b72dfc00c Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:56:58 +0200
 Subject: [PATCH] i2c: acpi: Use acpi_dev_ready_for_enumeration() helper
@@ -3609,7 +3316,7 @@ Patchset: cameras
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
-index 006e25a1b0d5..ff7f5cbb5c73 100644
+index 3b688cea8e00..0542d8aba902 100644
 --- a/drivers/i2c/i2c-core-acpi.c
 +++ b/drivers/i2c/i2c-core-acpi.c
 @@ -144,9 +144,12 @@ static int i2c_acpi_do_lookup(struct acpi_device *adev,
@@ -3629,7 +3336,7 @@ index 006e25a1b0d5..ff7f5cbb5c73 100644
 -- 
 2.34.1
 
-From 6cfc74f67b797508c8275d04ee4e45691eb0bf32 Mon Sep 17 00:00:00 2001
+From 9b4c9d5d362e1624b8d9f5ecf49486257c70453b Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:56:59 +0200
 Subject: [PATCH] platform_data: Add linux/platform_data/tps68470.h file
@@ -3702,7 +3409,7 @@ index 000000000000..126d082c3f2e
 -- 
 2.34.1
 
-From 904884587c5f88521227a0cf6aaee438e63f3d2e Mon Sep 17 00:00:00 2001
+From 190e1d22b43f4e5300ad28739c4aa0709f33860c Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:57:00 +0200
 Subject: [PATCH] regulator: Introduce tps68470-regulator driver
@@ -3731,7 +3438,7 @@ Patchset: cameras
  create mode 100644 drivers/regulator/tps68470-regulator.c
 
 diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index 4fd13b06231f..d107af5bff6c 100644
+index 6be9b1c8a615..25e3acb378e3 100644
 --- a/drivers/regulator/Kconfig
 +++ b/drivers/regulator/Kconfig
 @@ -1339,6 +1339,15 @@ config REGULATOR_TPS65912
@@ -3747,11 +3454,11 @@ index 4fd13b06231f..d107af5bff6c 100644
 +
 +	  The module will be called "tps68470-regulator"
 +
- config REGULATOR_TPS80031
- 	tristate "TI TPS80031/TPS80032 power regulator driver"
- 	depends on MFD_TPS80031
+ config REGULATOR_TWL4030
+ 	tristate "TI TWL4030/TWL5030/TWL6030/TPS659x0 PMIC"
+ 	depends on TWL4030_CORE
 diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 9e382b50a5ef..03c318110986 100644
+index b07d2a22df0b..0ea7e6adc267 100644
 --- a/drivers/regulator/Makefile
 +++ b/drivers/regulator/Makefile
 @@ -158,6 +158,7 @@ obj-$(CONFIG_REGULATOR_TPS6524X) += tps6524x-regulator.o
@@ -3759,9 +3466,9 @@ index 9e382b50a5ef..03c318110986 100644
  obj-$(CONFIG_REGULATOR_TPS65910) += tps65910-regulator.o
  obj-$(CONFIG_REGULATOR_TPS65912) += tps65912-regulator.o
 +obj-$(CONFIG_REGULATOR_TPS68470) += tps68470-regulator.o
- obj-$(CONFIG_REGULATOR_TPS80031) += tps80031-regulator.o
  obj-$(CONFIG_REGULATOR_TPS65132) += tps65132-regulator.o
  obj-$(CONFIG_REGULATOR_TWL4030) += twl-regulator.o twl6030-regulator.o
+ obj-$(CONFIG_REGULATOR_UNIPHIER) += uniphier-regulator.o
 diff --git a/drivers/regulator/tps68470-regulator.c b/drivers/regulator/tps68470-regulator.c
 new file mode 100644
 index 000000000000..3129fa13a122
@@ -3964,7 +3671,7 @@ index 000000000000..3129fa13a122
 -- 
 2.34.1
 
-From 4728befba9b381eba694c8cd5fb301d4509aedbc Mon Sep 17 00:00:00 2001
+From 5a056cdfd2509a10378053861dbaafc6288098de Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:57:01 +0200
 Subject: [PATCH] clk: Introduce clk-tps68470 driver
@@ -4309,7 +4016,7 @@ index ffe81127d91c..7807fa329db0 100644
 -- 
 2.34.1
 
-From a5c1472bd351c109e453fa8aeb634b8750339d68 Mon Sep 17 00:00:00 2001
+From 5773134e6376a818cdea8c15447b6c9eb26da355 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sun, 10 Oct 2021 20:57:02 +0200
 Subject: [PATCH] platform/x86: int3472: Enable I2c daisy chain
@@ -4346,7 +4053,7 @@ index c05b4cf502fe..42e688f4cad4 100644
 -- 
 2.34.1
 
-From e35314123d7b2f963fbfe376d0dc025ab1351215 Mon Sep 17 00:00:00 2001
+From 85062c3816e98da6370c4b95fd0cf499adda91cb Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:57:03 +0200
 Subject: [PATCH] platform/x86: int3472: Split into 2 drivers
@@ -4605,7 +4312,7 @@ index 42e688f4cad4..b94cf66ab61f 100644
 -- 
 2.34.1
 
-From b44d9c6c3f239d701373339adca648fe76bdebd5 Mon Sep 17 00:00:00 2001
+From ca4571a3af3604abce4f95ae031c87ebf22161cc Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:57:04 +0200
 Subject: [PATCH] platform/x86: int3472: Add get_sensor_adev_and_name() helper
@@ -4718,7 +4425,7 @@ index a19a1f5dbdd7..efd31a0c7a88 100644
 -- 
 2.34.1
 
-From c2c331a5b417f82997b886919e334957b98ff44a Mon Sep 17 00:00:00 2001
+From b81c726c0d7568ded109d37f1a4c2803466e7b64 Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:57:05 +0200
 Subject: [PATCH] platform/x86: int3472: Pass tps68470_clk_platform_data to the
@@ -4806,7 +4513,7 @@ index b94cf66ab61f..78e34e7b6969 100644
 -- 
 2.34.1
 
-From 0ed13262a631c62e5f9dcee55f9247cc963ec376 Mon Sep 17 00:00:00 2001
+From abdf52f78104bb61eb43ba5e764773d76914c8c2 Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:57:06 +0200
 Subject: [PATCH] platform/x86: int3472: Pass tps68470_regulator_platform_data
@@ -5100,7 +4807,7 @@ index 000000000000..96954a789bb8
 -- 
 2.34.1
 
-From cd3df413475b164bf7145d2dd23a4715d1cf3475 Mon Sep 17 00:00:00 2001
+From d4d2b610f59c11809fbb157d9ca4b4441926cc4d Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:57:07 +0200
 Subject: [PATCH] platform/x86: int3472: Deal with probe ordering issues
@@ -5184,7 +4891,7 @@ index aae24d228770..21c6c1a6edfc 100644
 -- 
 2.34.1
 
-From 8f8518750551d1ce2224cf1bb4c6e01de4457aad Mon Sep 17 00:00:00 2001
+From e0f6f33f5b58ad90fa1451d2e59c518e79ed8293 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Thu, 4 Nov 2021 21:46:27 +0000
 Subject: [PATCH] media: i2c: Add integration time margin to ov8865
@@ -5226,7 +4933,7 @@ index d5af8aedf5e8..966487e32bfe 100644
 -- 
 2.34.1
 
-From 65477c3b9dbb7a63efc1a9d482c56a0f1d2a6674 Mon Sep 17 00:00:00 2001
+From 112e3114442fa5c8b509dd1b040ae2a114d6b294 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Thu, 4 Nov 2021 21:48:38 +0000
 Subject: [PATCH] media: i2c: Fix max gain in ov8865
@@ -5258,7 +4965,7 @@ index 966487e32bfe..6c78edb65d1e 100644
 -- 
 2.34.1
 
-From 820ca5877c3fbb53d2204e2e39d0ed521f762f9c Mon Sep 17 00:00:00 2001
+From 4d22e6a654d4f9ab2033c563c49dc07c843922ac Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Fri, 3 Dec 2021 12:51:08 +0100
 Subject: [PATCH] mfd: intel-lpss: Fix I2C4 not being available on the
@@ -5307,7 +5014,7 @@ Patchset: cameras
  3 files changed, 14 insertions(+)
 
 diff --git a/drivers/mfd/intel-lpss-pci.c b/drivers/mfd/intel-lpss-pci.c
-index c54d19fb184c..4f3c041668a1 100644
+index a872b4485eac..81185d17d9c9 100644
 --- a/drivers/mfd/intel-lpss-pci.c
 +++ b/drivers/mfd/intel-lpss-pci.c
 @@ -17,6 +17,15 @@
@@ -5363,7 +5070,7 @@ index 22dbc4aed793..062ce95b68b9 100644
 -- 
 2.34.1
 
-From bf41fc14463e04c814bd337547192264f5ed5f05 Mon Sep 17 00:00:00 2001
+From bade949c01a5cabfa8d652bc2af00db127e42241 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Thu, 6 Jan 2022 22:12:38 +0000
 Subject: [PATCH] platform/x86: int3472: Add board data for Surface Go 3

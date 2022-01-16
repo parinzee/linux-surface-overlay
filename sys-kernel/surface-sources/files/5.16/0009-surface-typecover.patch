@@ -1,4 +1,4 @@
-From a4e37266855a261d3128a24f92ade3376016b38b Mon Sep 17 00:00:00 2001
+From f5a1ba596bd95924590c5cd9eb75bf8918fe6c1d Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Date: Thu, 5 Nov 2020 13:09:45 +0100
 Subject: [PATCH] hid/multitouch: Turn off Type Cover keyboard backlight when
@@ -34,7 +34,7 @@ Patchset: surface-typecover
  1 file changed, 98 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
-index e1afddb7b33d..c15600b04b28 100644
+index 082376a6cb3d..cfc2e684a22c 100644
 --- a/drivers/hid/hid-multitouch.c
 +++ b/drivers/hid/hid-multitouch.c
 @@ -34,7 +34,10 @@
@@ -216,7 +216,7 @@ index e1afddb7b33d..c15600b04b28 100644
  	del_timer_sync(&td->release_timer);
  
  	sysfs_remove_group(&hdev->dev.kobj, &mt_attribute_group);
-@@ -2172,6 +2263,11 @@ static const struct hid_device_id mt_devices[] = {
+@@ -2177,6 +2268,11 @@ static const struct hid_device_id mt_devices[] = {
  		MT_USB_DEVICE(USB_VENDOR_ID_XIROKU,
  			USB_DEVICE_ID_XIROKU_CSR2) },
  

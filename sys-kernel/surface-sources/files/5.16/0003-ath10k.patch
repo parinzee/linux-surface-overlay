@@ -1,4 +1,4 @@
-From 884f7715d516d67b71fdbb7f7a6849473ae30faf Mon Sep 17 00:00:00 2001
+From 40c0fa8c2d8dbfea2673293256789033516822e7 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 27 Feb 2021 00:45:52 +0100
 Subject: [PATCH] ath10k: Add module parameters to override board files
@@ -20,7 +20,7 @@ Patchset: ath10k
  1 file changed, 58 insertions(+)
 
 diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
-index 64c7145b51a2..1e71a60cfb11 100644
+index 5935e0973d14..9cbb7b245e85 100644
 --- a/drivers/net/wireless/ath/ath10k/core.c
 +++ b/drivers/net/wireless/ath/ath10k/core.c
 @@ -35,6 +35,9 @@ static bool skip_otp;

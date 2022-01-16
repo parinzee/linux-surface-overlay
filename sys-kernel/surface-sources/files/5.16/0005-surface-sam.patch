@@ -1,64 +1,4 @@
-From c2f7d2e8baaac8f7be586a5b849acce4b22145d2 Mon Sep 17 00:00:00 2001
-From: Maximilian Luz <luzmaximilian@gmail.com>
-Date: Thu, 28 Oct 2021 03:28:45 +0200
-Subject: [PATCH] platform/surface: aggregator_registry: Add initial support
- for Surface Pro 8
-
-Add preliminary support for the Surface Pro 8 to the Surface Aggregator
-registry. This includes battery/charger status and platform profile
-support.
-
-In contrast to earlier Surface Pro generations, the keyboard cover is
-now also connected via the Surface Aggregator Module (whereas it was
-previously connected via USB or HID-over-I2C). To properly support the
-HID devices of that cover, however, more changes regarding hot-removal
-of Surface Aggregator client devices as well as a new device hub driver
-are required. We will address those things in a follow-up series, so do
-not add any HID device IDs just yet.
-
-Signed-off-by: Maximilian Luz <luzmaximilian@gmail.com>
-Link: https://lore.kernel.org/r/20211028012845.1887219-1-luzmaximilian@gmail.com
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Patchset: surface-sam
----
- .../platform/surface/surface_aggregator_registry.c   | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
-index 1679811eff50..e70f4c63554e 100644
---- a/drivers/platform/surface/surface_aggregator_registry.c
-+++ b/drivers/platform/surface/surface_aggregator_registry.c
-@@ -228,6 +228,15 @@ static const struct software_node *ssam_node_group_sp7[] = {
- 	NULL,
- };
- 
-+static const struct software_node *ssam_node_group_sp8[] = {
-+	&ssam_node_root,
-+	&ssam_node_bat_ac,
-+	&ssam_node_bat_main,
-+	&ssam_node_tmp_pprof,
-+	/* TODO: Add support for keyboard cover. */
-+	NULL,
-+};
-+
- 
- /* -- Device registry helper functions. ------------------------------------- */
- 
-@@ -534,6 +543,9 @@ static const struct acpi_device_id ssam_platform_hub_match[] = {
- 	/* Surface Pro 7+ */
- 	{ "MSHW0119", (unsigned long)ssam_node_group_sp7 },
- 
-+	/* Surface Pro 8 */
-+	{ "MSHW0263", (unsigned long)ssam_node_group_sp8 },
-+
- 	/* Surface Book 2 */
- 	{ "MSHW0107", (unsigned long)ssam_node_group_gen5 },
- 
--- 
-2.34.1
-
-From 758aee088b5a4eb00df31bac196212ee7f0eb95b Mon Sep 17 00:00:00 2001
+From 77b2631555a42afe9faaad79e47342defd10a38e Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 2 Jun 2021 03:34:06 +0200
 Subject: [PATCH] platform/surface: aggregator: Make client device removal more
@@ -183,7 +123,7 @@ index f636c5310321..cc257097eb05 100644
 -- 
 2.34.1
 
-From 45882009a18267754ea40e3eb044f61f84ea6d49 Mon Sep 17 00:00:00 2001
+From fa822231a4cd0f316dd00952d39d09f4ce1ed215 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 02:06:38 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Use generic client
@@ -271,7 +211,7 @@ index e70f4c63554e..f6c639342b9d 100644
 -- 
 2.34.1
 
-From 06fbe764d97fb5ffb46a910efe4a8bcd3f2d2b69 Mon Sep 17 00:00:00 2001
+From 40bfe303124ccd4e6a99f4415605e19d8970581d Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 02:07:33 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Rename device
@@ -322,7 +262,7 @@ index f6c639342b9d..ce2bd88feeaa 100644
 -- 
 2.34.1
 
-From 7c45966cfe0b5187690039080bf0d456bcd05e90 Mon Sep 17 00:00:00 2001
+From 1c12fdba2688e863a7285498e08954988799825f Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 00:24:47 +0200
 Subject: [PATCH] platform/surface: aggregator: Allow devices to be marked as
@@ -443,7 +383,7 @@ index cc257097eb05..491aa7e9f4bc 100644
 -- 
 2.34.1
 
-From 44770b304ec78acf99c7cb3afb053f82346e54f0 Mon Sep 17 00:00:00 2001
+From d2a0a4cb9d997b454344fe1c28bf7868e108fbbe Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 00:48:22 +0200
 Subject: [PATCH] platform/surface: aggregator: Allow notifiers to avoid
@@ -730,7 +670,7 @@ index 491aa7e9f4bc..16816c34da3e 100644
 -- 
 2.34.1
 
-From 7faa13d1310e9ab4412976b30faef30229f21a50 Mon Sep 17 00:00:00 2001
+From 1fd981556e0616a6c6303d7fc0ae0f75e7d52eba Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 01:20:49 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Use client device
@@ -779,7 +719,7 @@ index ce2bd88feeaa..9f630e890ff7 100644
 -- 
 2.34.1
 
-From 11ed57aa167e7d6d08f21968da3fca1cfb9fc4e4 Mon Sep 17 00:00:00 2001
+From 40c79025534b2ea43e7561cc9295be5c1125faa6 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 28 Oct 2021 03:37:06 +0200
 Subject: [PATCH] power/supply: surface_charger: Use client device wrappers for
@@ -819,7 +759,7 @@ index a060c36c7766..59182d55742d 100644
 -- 
 2.34.1
 
-From b7351a57ad6c46030e3bb7526fa9db843052f8bc Mon Sep 17 00:00:00 2001
+From f96ed98c6614de71af7aa490bcf4b6f49034b103 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 28 Oct 2021 03:38:09 +0200
 Subject: [PATCH] power/supply: surface_battery: Use client device wrappers for
@@ -859,7 +799,7 @@ index 5ec2e6bb2465..540707882bb0 100644
 -- 
 2.34.1
 
-From 198eb4c63c1a62d0e97b5f445678d4bced8d5f02 Mon Sep 17 00:00:00 2001
+From dd80d11c184e44fa0c8f8174fce4faaa38655262 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 01:33:02 +0200
 Subject: [PATCH] HID: surface-hid: Add support for hot-removal
@@ -970,7 +910,7 @@ index 5571e74abe91..d2e695e942b6 100644
 -- 
 2.34.1
 
-From 5bbe985afa59130ca2378b9a1ef7409886427c7c Mon Sep 17 00:00:00 2001
+From f17f1c549466acbf3cff0a1f76b45185a57466e4 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 31 Oct 2021 12:34:08 +0100
 Subject: [PATCH] platform/surface: aggregator: Add comment for KIP subsystem
@@ -1008,7 +948,7 @@ index c3de43edcffa..d1efac85caf1 100644
 -- 
 2.34.1
 
-From aa859c6ce8852971e66865919ff98879a95ba6e9 Mon Sep 17 00:00:00 2001
+From 57007b8e0291afd9c728d956e4a3bce047b38ced Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 10 Oct 2021 23:56:23 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add KIP device hub
@@ -1322,7 +1262,7 @@ index 9f630e890ff7..4838ce6519a6 100644
 -- 
 2.34.1
 
-From cd22fa32a60433a791c3be82fa41da4a1c8b4a94 Mon Sep 17 00:00:00 2001
+From 0fb1086de9ea2da46253bc67cb32b11dc1b0506d Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 22:33:03 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for
@@ -1420,7 +1360,7 @@ index 4838ce6519a6..c0e29c0514df 100644
 -- 
 2.34.1
 
-From 27370f6b89684508be9ec4157851b24a20602302 Mon Sep 17 00:00:00 2001
+From c8375a25c47b2e066db67ef20e780df974f9322a Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 03:19:20 +0200
 Subject: [PATCH] platform/surface: Add KIP tablet-mode switch
@@ -1450,10 +1390,10 @@ Patchset: surface-sam
  create mode 100644 drivers/platform/surface/surface_kip_tablet_switch.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 3b79fd441dde..84e43aae33c0 100644
+index dd36acc87ce6..d69fdf5aadec 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -12468,6 +12468,12 @@ L:	platform-driver-x86@vger.kernel.org
+@@ -12678,6 +12678,12 @@ L:	platform-driver-x86@vger.kernel.org
  S:	Maintained
  F:	drivers/platform/surface/surface_hotplug.c
  
@@ -1764,7 +1704,7 @@ index 000000000000..458470067579
 -- 
 2.34.1
 
-From e613c88ebbe907fa87798d939f7e9ae18604b8c0 Mon Sep 17 00:00:00 2001
+From eaea62f0a964f4dab5e3c85600ef29137e96585f Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 22:33:03 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for tablet
