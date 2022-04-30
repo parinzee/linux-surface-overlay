@@ -1,4 +1,4 @@
-From 48eab1c5e0d9fe67384d6c2e91efdf0ec3ff54b5 Mon Sep 17 00:00:00 2001
+From a571ac532f5b41c81a7d3e699d22f9964747bd45 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Feb 2022 01:29:48 +0100
 Subject: [PATCH] ACPI: battery: Add "Not Charging" quirk for Microsoft Surface
