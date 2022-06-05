@@ -1,4 +1,4 @@
-From c829f6576ba9c6a56f5c3112bd1c17f639d04fa0 Mon Sep 17 00:00:00 2001
+From aaf2bc35046e28956818ff457ccab4970fc2d58d Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 30 Jul 2020 13:21:53 +0200
 Subject: [PATCH] misc: mei: Add missing IPTS device IDs
@@ -22,10 +22,10 @@ index 64ce3f830262..c208a1e3a7c1 100644
  
  #define MEI_DEV_ID_JSP_N      0x4DE0  /* Jasper Lake Point N */
 diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
-index a738253dbd05..4e1c3fe09e53 100644
+index 33e58821e478..fde0ad009b17 100644
 --- a/drivers/misc/mei/pci-me.c
 +++ b/drivers/misc/mei/pci-me.c
-@@ -96,6 +96,7 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
+@@ -97,6 +97,7 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
  	{MEI_PCI_DEVICE(MEI_DEV_ID_CMP_H_3, MEI_ME_PCH8_ITOUCH_CFG)},
  
  	{MEI_PCI_DEVICE(MEI_DEV_ID_ICP_LP, MEI_ME_PCH12_CFG)},
@@ -36,7 +36,7 @@ index a738253dbd05..4e1c3fe09e53 100644
 -- 
 2.36.1
 
-From e0f1927b5f31b397c35c7ce8d4d2fca856a2fb1a Mon Sep 17 00:00:00 2001
+From 7f9ae7ad149bee7d37c1b24dc51773ca124d3202 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 6 Aug 2020 11:20:41 +0200
 Subject: [PATCH] misc: Add support for Intel Precise Touch & Stylus
@@ -77,23 +77,23 @@ Patchset: ipts
  create mode 100644 drivers/misc/ipts/uapi.h
 
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 0f5a49fc7c9e..12b081bc875a 100644
+index 41d2bb0ae23a..effb258d4848 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
-@@ -487,4 +487,5 @@ source "drivers/misc/cardreader/Kconfig"
+@@ -500,4 +500,5 @@ source "drivers/misc/cardreader/Kconfig"
  source "drivers/misc/habanalabs/Kconfig"
  source "drivers/misc/uacce/Kconfig"
  source "drivers/misc/pvpanic/Kconfig"
 +source "drivers/misc/ipts/Kconfig"
  endmenu
 diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index a086197af544..972cae33ba36 100644
+index 70e800e9127f..a8d1e9447025 100644
 --- a/drivers/misc/Makefile
 +++ b/drivers/misc/Makefile
-@@ -59,3 +59,4 @@ obj-$(CONFIG_UACCE)		+= uacce/
- obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
+@@ -60,3 +60,4 @@ obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
  obj-$(CONFIG_HISI_HIKEY_USB)	+= hisi_hikey_usb.o
  obj-$(CONFIG_HI6421V600_IRQ)	+= hi6421v600-irq.o
+ obj-$(CONFIG_OPEN_DICE)		+= open-dice.o
 +obj-$(CONFIG_MISC_IPTS)		+= ipts/
 diff --git a/drivers/misc/ipts/Kconfig b/drivers/misc/ipts/Kconfig
 new file mode 100644
@@ -1501,7 +1501,7 @@ index 000000000000..53fb86a88f97
 -- 
 2.36.1
 
-From 5f7235918c23e2ae8d52ed8321188d1e740635c2 Mon Sep 17 00:00:00 2001
+From 9c4eade5a9213b8dc686d0f35860ff112d308b4a Mon Sep 17 00:00:00 2001
 From: Liban Hannan <liban.p@gmail.com>
 Date: Tue, 12 Apr 2022 23:31:12 +0100
 Subject: [PATCH] iommu: ipts: use IOMMU passthrough mode for IPTS
@@ -1523,10 +1523,10 @@ Patchset: ipts
  1 file changed, 24 insertions(+)
 
 diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index ab2273300346..a91eed82bb39 100644
+index 0ea47e17b379..f437c0118c00 100644
 --- a/drivers/iommu/intel/iommu.c
 +++ b/drivers/iommu/intel/iommu.c
-@@ -57,6 +57,8 @@
+@@ -37,6 +37,8 @@
  #define IS_GFX_DEVICE(pdev) ((pdev->class >> 16) == PCI_BASE_CLASS_DISPLAY)
  #define IS_USB_DEVICE(pdev) ((pdev->class >> 8) == PCI_CLASS_SERIAL_USB)
  #define IS_ISA_DEVICE(pdev) ((pdev->class >> 8) == PCI_CLASS_BRIDGE_ISA)
@@ -1535,7 +1535,7 @@ index ab2273300346..a91eed82bb39 100644
  #define IS_AZALIA(pdev) ((pdev)->vendor == 0x8086 && (pdev)->device == 0x3a3e)
  
  #define IOAPIC_RANGE_START	(0xfee00000)
-@@ -332,12 +334,14 @@ int intel_iommu_enabled = 0;
+@@ -307,12 +309,14 @@ int intel_iommu_enabled = 0;
  EXPORT_SYMBOL_GPL(intel_iommu_enabled);
  
  static int dmar_map_gfx = 1;
@@ -1550,7 +1550,7 @@ index ab2273300346..a91eed82bb39 100644
  
  int intel_iommu_gfx_mapped;
  EXPORT_SYMBOL_GPL(intel_iommu_gfx_mapped);
-@@ -2987,6 +2991,9 @@ static int device_def_domain_type(struct device *dev)
+@@ -2724,6 +2728,9 @@ static int device_def_domain_type(struct device *dev)
  
  		if ((iommu_identity_mapping & IDENTMAP_GFX) && IS_GFX_DEVICE(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
@@ -1560,7 +1560,7 @@ index ab2273300346..a91eed82bb39 100644
  	}
  
  	return 0;
-@@ -3423,6 +3430,9 @@ static int __init init_dmars(void)
+@@ -3160,6 +3167,9 @@ static int __init init_dmars(void)
  	if (!dmar_map_gfx)
  		iommu_identity_mapping |= IDENTMAP_GFX;
  
@@ -1570,7 +1570,7 @@ index ab2273300346..a91eed82bb39 100644
  	check_tylersburg_isoch();
  
  	ret = si_domain_init(hw_pass_through);
-@@ -5664,6 +5674,17 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
+@@ -4931,6 +4941,17 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
  	dmar_map_gfx = 0;
  }
  
@@ -1588,7 +1588,7 @@ index ab2273300346..a91eed82bb39 100644
  /* G4x/GM45 integrated gfx dmar support is totally busted. */
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2a40, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2e00, quirk_iommu_igfx);
-@@ -5699,6 +5720,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
+@@ -4966,6 +4987,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163A, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163D, quirk_iommu_igfx);
  

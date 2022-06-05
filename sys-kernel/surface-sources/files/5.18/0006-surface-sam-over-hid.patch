@@ -1,4 +1,4 @@
-From fd3c7e238c204bc2541b42ce90ed65f4b54e9873 Mon Sep 17 00:00:00 2001
+From 927a62bbd965db4e0bbddf7f4d4410d17379c694 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 25 Jul 2020 17:19:53 +0200
 Subject: [PATCH] i2c: acpi: Implement RawBytes read access
@@ -55,10 +55,10 @@ Patchset: surface-sam-over-hid
  1 file changed, 35 insertions(+)
 
 diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
-index 85ed4c1d4924..942c1c9a4ea5 100644
+index 08b561f0709d..d7c397bce0f0 100644
 --- a/drivers/i2c/i2c-core-acpi.c
 +++ b/drivers/i2c/i2c-core-acpi.c
-@@ -624,6 +624,28 @@ static int acpi_gsb_i2c_write_bytes(struct i2c_client *client,
+@@ -619,6 +619,28 @@ static int acpi_gsb_i2c_write_bytes(struct i2c_client *client,
  	return (ret == 1) ? 0 : -EIO;
  }
  
@@ -87,7 +87,7 @@ index 85ed4c1d4924..942c1c9a4ea5 100644
  static acpi_status
  i2c_acpi_space_handler(u32 function, acpi_physical_address command,
  			u32 bits, u64 *value64,
-@@ -725,6 +747,19 @@ i2c_acpi_space_handler(u32 function, acpi_physical_address command,
+@@ -720,6 +742,19 @@ i2c_acpi_space_handler(u32 function, acpi_physical_address command,
  		}
  		break;
  
@@ -110,7 +110,7 @@ index 85ed4c1d4924..942c1c9a4ea5 100644
 -- 
 2.36.1
 
-From bbb0778286ea9dd4f3251460e118620d8c63abf0 Mon Sep 17 00:00:00 2001
+From 209e107c805cab95bd3cce0baa38484b73013789 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 13 Feb 2021 16:41:18 +0100
 Subject: [PATCH] platform/surface: Add driver for Surface Book 1 dGPU switch
@@ -133,10 +133,10 @@ Patchset: surface-sam-over-hid
  create mode 100644 drivers/platform/surface/surfacebook1_dgpu_switch.c
 
 diff --git a/drivers/platform/surface/Kconfig b/drivers/platform/surface/Kconfig
-index c685ec440535..3d3659b87ba4 100644
+index 27780746936d..126f940ee95a 100644
 --- a/drivers/platform/surface/Kconfig
 +++ b/drivers/platform/surface/Kconfig
-@@ -133,6 +133,13 @@ config SURFACE_AGGREGATOR_REGISTRY
+@@ -126,6 +126,13 @@ config SURFACE_AGGREGATOR_REGISTRY
  	  the respective client devices. Drivers for these devices still need to
  	  be selected via the other options.
  
@@ -151,10 +151,10 @@ index c685ec440535..3d3659b87ba4 100644
  	tristate "Surface DTX (Detachment System) Driver"
  	depends on SURFACE_AGGREGATOR
 diff --git a/drivers/platform/surface/Makefile b/drivers/platform/surface/Makefile
-index fccd33e6780d..20408730f425 100644
+index 73124b4fcd31..ea407549286c 100644
 --- a/drivers/platform/surface/Makefile
 +++ b/drivers/platform/surface/Makefile
-@@ -12,6 +12,7 @@ obj-$(CONFIG_SURFACE_AGGREGATOR)	+= aggregator/
+@@ -11,6 +11,7 @@ obj-$(CONFIG_SURFACE_AGGREGATOR)	+= aggregator/
  obj-$(CONFIG_SURFACE_AGGREGATOR_CDEV)	+= surface_aggregator_cdev.o
  obj-$(CONFIG_SURFACE_AGGREGATOR_HUB)	+= surface_aggregator_hub.o
  obj-$(CONFIG_SURFACE_AGGREGATOR_REGISTRY) += surface_aggregator_registry.o

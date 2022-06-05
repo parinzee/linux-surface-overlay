@@ -1,4 +1,4 @@
-From 92e3c54674dd63ed4f506e4cae17fb42542d7b08 Mon Sep 17 00:00:00 2001
+From fdad6d7397202fbca80d69ae6135637fff45d26e Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 27 Feb 2021 00:45:52 +0100
 Subject: [PATCH] ath10k: Add module parameters to override board files
@@ -20,7 +20,7 @@ Patchset: ath10k
  1 file changed, 58 insertions(+)
 
 diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
-index 8f5b8eb368fa..80c1bac732bc 100644
+index 9e1f483e1362..34cfce241e4a 100644
 --- a/drivers/net/wireless/ath/ath10k/core.c
 +++ b/drivers/net/wireless/ath/ath10k/core.c
 @@ -36,6 +36,9 @@ static bool skip_otp;
@@ -53,7 +53,7 @@ index 8f5b8eb368fa..80c1bac732bc 100644
  static const struct ath10k_hw_params ath10k_hw_params_list[] = {
  	{
  		.id = QCA988X_HW_2_0_VERSION,
-@@ -844,6 +853,42 @@ static int ath10k_init_configure_target(struct ath10k *ar)
+@@ -860,6 +869,42 @@ static int ath10k_init_configure_target(struct ath10k *ar)
  	return 0;
  }
  
@@ -96,7 +96,7 @@ index 8f5b8eb368fa..80c1bac732bc 100644
  static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
  						   const char *dir,
  						   const char *file)
-@@ -858,6 +903,19 @@ static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
+@@ -874,6 +919,19 @@ static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
  	if (dir == NULL)
  		dir = ".";
  

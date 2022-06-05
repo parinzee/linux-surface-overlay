@@ -1,4 +1,4 @@
-From cfbd9e854148e4aef9d7eacd91e477aa0b9bcd87 Mon Sep 17 00:00:00 2001
+From 11cb4f8c05666e7092892e306e22b5e0b2d1c91b Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 00:24:47 +0200
 Subject: [PATCH] platform/surface: aggregator: Allow devices to be marked as
@@ -104,7 +104,7 @@ index cc257097eb05..491aa7e9f4bc 100644
 -- 
 2.36.1
 
-From 68636afb10b85c770c083a0d8a606140de8e2bd8 Mon Sep 17 00:00:00 2001
+From 69be483916d47a555690ce409e620cb39e9b0c3e Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 00:48:22 +0200
 Subject: [PATCH] platform/surface: aggregator: Allow notifiers to avoid
@@ -397,7 +397,7 @@ index 491aa7e9f4bc..ad245c6b00d0 100644
 -- 
 2.36.1
 
-From bf3ce7f3d4c4e03ba411076640c64037703de563 Mon Sep 17 00:00:00 2001
+From 01a341b88606f2e4523134a2ec17a21b7c252370 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 01:20:49 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Use client device
@@ -446,7 +446,7 @@ index ce2bd88feeaa..9f630e890ff7 100644
 -- 
 2.36.1
 
-From 1df738bdc62b8dede679fe40d700f3459aeabf8a Mon Sep 17 00:00:00 2001
+From 337f42d4d9482d3d1fcc81f86e0615b7dbed8f43 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 28 Oct 2021 03:37:06 +0200
 Subject: [PATCH] power/supply: surface_charger: Use client device wrappers for
@@ -486,7 +486,7 @@ index a060c36c7766..59182d55742d 100644
 -- 
 2.36.1
 
-From 4fa22a4b83fe1712465ad5704279e99818df352b Mon Sep 17 00:00:00 2001
+From bcd638f85b4838e83cff7df5e6b84f6d2a72a4c2 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 28 Oct 2021 03:38:09 +0200
 Subject: [PATCH] power/supply: surface_battery: Use client device wrappers for
@@ -526,7 +526,7 @@ index 5ec2e6bb2465..540707882bb0 100644
 -- 
 2.36.1
 
-From 50ee1b5c193edbd0847cb05935e214cd2a8b155c Mon Sep 17 00:00:00 2001
+From cd0d0fd5cb8891a768117a4b942930fdd948daa4 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 01:33:02 +0200
 Subject: [PATCH] HID: surface-hid: Add support for hot-removal
@@ -637,7 +637,7 @@ index e46330b2e561..87637f813de2 100644
 -- 
 2.36.1
 
-From cd4830779d38118c24a3e283eb635eed4a0a3628 Mon Sep 17 00:00:00 2001
+From 3c1d8a475299af30b1a048d1b256374284aae1b7 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 31 Oct 2021 12:34:08 +0100
 Subject: [PATCH] platform/surface: aggregator: Add comment for KIP subsystem
@@ -675,7 +675,7 @@ index c3de43edcffa..26b95ec12733 100644
 -- 
 2.36.1
 
-From e0fcff75e59b8ff26b5e43261b06aa4085050f5b Mon Sep 17 00:00:00 2001
+From e6e17e3230c3d67976b698b1ee055d7c8ed39e42 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Fri, 29 Apr 2022 22:42:32 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Generify subsystem hub
@@ -1062,7 +1062,7 @@ index 9f630e890ff7..09cbeee2428b 100644
 -- 
 2.36.1
 
-From 08227344c68758847616975c97c2aa0df84d92c4 Mon Sep 17 00:00:00 2001
+From 974e92e633c22cbf9bcdc4e0669ee5464bfd602e Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Fri, 29 Apr 2022 23:02:06 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add KIP device hub
@@ -1224,7 +1224,7 @@ index 09cbeee2428b..1e60435c7cce 100644
 -- 
 2.36.1
 
-From 659f4e03f100549c158da7005d8118db301eb57e Mon Sep 17 00:00:00 2001
+From b2163fb7f8188fd153f72b6fc83e94eba6c2fb2f Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 22:33:03 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for
@@ -1322,7 +1322,7 @@ index 1e60435c7cce..ab69669316bd 100644
 -- 
 2.36.1
 
-From adfed3e858e7716288f43dbba2e8f791e6dfda77 Mon Sep 17 00:00:00 2001
+From 61fae5943305a2f16d74f813c2e4648585ded62b Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Tue, 8 Jun 2021 03:19:20 +0200
 Subject: [PATCH] platform/surface: Add KIP tablet-mode switch
@@ -1352,10 +1352,10 @@ Patchset: surface-sam
  create mode 100644 drivers/platform/surface/surface_kip_tablet_switch.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index d9b2f1731ee0..4d83cd26e299 100644
+index f468864fd268..38f7f19002ac 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -12823,6 +12823,12 @@ L:	platform-driver-x86@vger.kernel.org
+@@ -13079,6 +13079,12 @@ L:	platform-driver-x86@vger.kernel.org
  S:	Maintained
  F:	drivers/platform/surface/surface_hotplug.c
  
@@ -1369,10 +1369,10 @@ index d9b2f1731ee0..4d83cd26e299 100644
  M:	Maximilian Luz <luzmaximilian@gmail.com>
  L:	platform-driver-x86@vger.kernel.org
 diff --git a/drivers/platform/surface/Kconfig b/drivers/platform/surface/Kconfig
-index 463f1ec5c14e..9c228090c35b 100644
+index eb79fbed8059..738d416ca4b2 100644
 --- a/drivers/platform/surface/Kconfig
 +++ b/drivers/platform/surface/Kconfig
-@@ -156,6 +156,28 @@ config SURFACE_HOTPLUG
+@@ -149,6 +149,28 @@ config SURFACE_HOTPLUG
  	  Select M or Y here, if you want to (fully) support hot-plugging of
  	  dGPU devices on the Surface Book 2 and/or 3 during D3cold.
  
@@ -1402,10 +1402,10 @@ index 463f1ec5c14e..9c228090c35b 100644
  	tristate "Surface Platform Profile Driver"
  	depends on ACPI
 diff --git a/drivers/platform/surface/Makefile b/drivers/platform/surface/Makefile
-index 32889482de55..6d9291c993c4 100644
+index 0fc9cd3e4dd9..e173a95f2e8d 100644
 --- a/drivers/platform/surface/Makefile
 +++ b/drivers/platform/surface/Makefile
-@@ -14,5 +14,6 @@ obj-$(CONFIG_SURFACE_AGGREGATOR_REGISTRY) += surface_aggregator_registry.o
+@@ -13,5 +13,6 @@ obj-$(CONFIG_SURFACE_AGGREGATOR_REGISTRY) += surface_aggregator_registry.o
  obj-$(CONFIG_SURFACE_DTX)		+= surface_dtx.o
  obj-$(CONFIG_SURFACE_GPE)		+= surface_gpe.o
  obj-$(CONFIG_SURFACE_HOTPLUG)		+= surface_hotplug.o
@@ -1666,7 +1666,7 @@ index 000000000000..27371da71ef2
 -- 
 2.36.1
 
-From 6b33da5c3b92b570908b1047b47b93d48980a4f3 Mon Sep 17 00:00:00 2001
+From c52bb8c58a61e3c4842efe6c325f0f659f39996a Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Wed, 27 Oct 2021 22:33:03 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for tablet
@@ -1716,7 +1716,7 @@ index ab69669316bd..c666392d4a9a 100644
 -- 
 2.36.1
 
-From c4b68648f214854a73a4f1d1442f83b2269880ad Mon Sep 17 00:00:00 2001
+From 615cedaf5078fb23d8d6330843a5989ffb3b5aa7 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 21 May 2022 00:30:46 +0200
 Subject: [PATCH] platform/surface: aggregator: Move device registry helper
@@ -2105,7 +2105,7 @@ index ad245c6b00d0..6ae110e830b4 100644
 -- 
 2.36.1
 
-From e053bb305e35af3074f8c7775ea7826bfb51e677 Mon Sep 17 00:00:00 2001
+From d8a038b9b64c1236478821d79d5b5049b012fba3 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 21 May 2022 00:39:56 +0200
 Subject: [PATCH] platform/surface: aggregator: Move subsystem hub drivers to
@@ -2128,10 +2128,10 @@ Patchset: surface-sam
  create mode 100644 drivers/platform/surface/surface_aggregator_hub.c
 
 diff --git a/drivers/platform/surface/Kconfig b/drivers/platform/surface/Kconfig
-index 9c228090c35b..c685ec440535 100644
+index 738d416ca4b2..27780746936d 100644
 --- a/drivers/platform/surface/Kconfig
 +++ b/drivers/platform/surface/Kconfig
-@@ -79,18 +79,45 @@ config SURFACE_AGGREGATOR_CDEV
+@@ -72,18 +72,45 @@ config SURFACE_AGGREGATOR_CDEV
  	  The provided interface is intended for debugging and development only,
  	  and should not be used otherwise.
  
@@ -2182,10 +2182,10 @@ index 9c228090c35b..c685ec440535 100644
  	  Devices provided via this registry are:
  	  - Platform profile (performance-/cooling-mode) device (5th- and later
 diff --git a/drivers/platform/surface/Makefile b/drivers/platform/surface/Makefile
-index 6d9291c993c4..fccd33e6780d 100644
+index e173a95f2e8d..73124b4fcd31 100644
 --- a/drivers/platform/surface/Makefile
 +++ b/drivers/platform/surface/Makefile
-@@ -10,6 +10,7 @@ obj-$(CONFIG_SURFACE_3_POWER_OPREGION)	+= surface3_power.o
+@@ -9,6 +9,7 @@ obj-$(CONFIG_SURFACE_3_POWER_OPREGION)	+= surface3_power.o
  obj-$(CONFIG_SURFACE_ACPI_NOTIFY)	+= surface_acpi_notify.o
  obj-$(CONFIG_SURFACE_AGGREGATOR)	+= aggregator/
  obj-$(CONFIG_SURFACE_AGGREGATOR_CDEV)	+= surface_aggregator_cdev.o
@@ -2966,7 +2966,7 @@ index 3261c8141841..11b51aa9ea73 100644
 -- 
 2.36.1
 
-From 9b4bce884b68c87f3375b6120ba1428b31ceb6a6 Mon Sep 17 00:00:00 2001
+From 9733bfb395839e0cf33b1e3d36d714b0d7c572f1 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 21 May 2022 00:51:05 +0200
 Subject: [PATCH] platform/surface: aggregator: Be consistent with hub device
@@ -3028,7 +3028,7 @@ index 11b51aa9ea73..cee7121e7fa6 100644
 -- 
 2.36.1
 
-From 25809d9c6361dfcc0c2e6e3125aa803b595cb8fd Mon Sep 17 00:00:00 2001
+From 2d3a54490933722f2165f982c04de88e3ba46f31 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 21 May 2022 00:57:40 +0200
 Subject: [PATCH] platform/surface: Update copyright year of various drivers
@@ -3254,7 +3254,7 @@ index de64cf169060..7be0bb097dea 100644
  
  #undef TRACE_SYSTEM
 diff --git a/drivers/platform/surface/surface_acpi_notify.c b/drivers/platform/surface/surface_acpi_notify.c
-index 8339988d95c1..acc958b43b57 100644
+index 7b758f8cc137..b0a83255d060 100644
 --- a/drivers/platform/surface/surface_acpi_notify.c
 +++ b/drivers/platform/surface/surface_acpi_notify.c
 @@ -8,7 +8,7 @@
