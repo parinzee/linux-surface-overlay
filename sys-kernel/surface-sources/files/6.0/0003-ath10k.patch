@@ -1,4 +1,4 @@
-From 3b80b49098ef26ca33a433efc371155b9734f21a Mon Sep 17 00:00:00 2001
+From dbe61e9e26fe42469ab212672f76b2875d4686c8 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 27 Feb 2021 00:45:52 +0100
 Subject: [PATCH] ath10k: Add module parameters to override board files
@@ -20,12 +20,12 @@ Patchset: ath10k
  1 file changed, 58 insertions(+)
 
 diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
-index 688177453b07..e400a0318838 100644
+index 276954b70d63..7397b1cad86c 100644
 --- a/drivers/net/wireless/ath/ath10k/core.c
 +++ b/drivers/net/wireless/ath/ath10k/core.c
-@@ -36,6 +36,9 @@ static bool skip_otp;
- static bool rawmode;
- static bool fw_diag_log;
+@@ -38,6 +38,9 @@ static bool fw_diag_log;
+ /* frame mode values are mapped as per enum ath10k_hw_txrx_mode */
+ unsigned int ath10k_frame_mode = ATH10K_HW_TXRX_NATIVE_WIFI;
  
 +static char *override_board = "";
 +static char *override_board2 = "";
@@ -33,8 +33,8 @@ index 688177453b07..e400a0318838 100644
  unsigned long ath10k_coredump_mask = BIT(ATH10K_FW_CRASH_DUMP_REGISTERS) |
  				     BIT(ATH10K_FW_CRASH_DUMP_CE_DATA);
  
-@@ -48,6 +51,9 @@ module_param(rawmode, bool, 0644);
- module_param(fw_diag_log, bool, 0644);
+@@ -50,6 +53,9 @@ module_param(fw_diag_log, bool, 0644);
+ module_param_named(frame_mode, ath10k_frame_mode, uint, 0644);
  module_param_named(coredump_mask, ath10k_coredump_mask, ulong, 0444);
  
 +module_param(override_board, charp, 0644);
@@ -43,7 +43,7 @@ index 688177453b07..e400a0318838 100644
  MODULE_PARM_DESC(debug_mask, "Debugging mask");
  MODULE_PARM_DESC(uart_print, "Uart target debugging");
  MODULE_PARM_DESC(skip_otp, "Skip otp failure for calibration in testmode");
-@@ -56,6 +62,9 @@ MODULE_PARM_DESC(rawmode, "Use raw 802.11 frame datapath");
+@@ -59,6 +65,9 @@ MODULE_PARM_DESC(frame_mode,
  MODULE_PARM_DESC(coredump_mask, "Bitfield of what to include in firmware crash file");
  MODULE_PARM_DESC(fw_diag_log, "Diag based fw log debugging");
  
@@ -53,7 +53,7 @@ index 688177453b07..e400a0318838 100644
  static const struct ath10k_hw_params ath10k_hw_params_list[] = {
  	{
  		.id = QCA988X_HW_2_0_VERSION,
-@@ -876,6 +885,42 @@ static int ath10k_init_configure_target(struct ath10k *ar)
+@@ -879,6 +888,42 @@ static int ath10k_init_configure_target(struct ath10k *ar)
  	return 0;
  }
  
@@ -96,7 +96,7 @@ index 688177453b07..e400a0318838 100644
  static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
  						   const char *dir,
  						   const char *file)
-@@ -890,6 +935,19 @@ static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
+@@ -893,6 +938,19 @@ static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
  	if (dir == NULL)
  		dir = ".";
  

@@ -1,4 +1,4 @@
-From 00a83fda3d1ac2601db759f4cdea5c0888d31894 Mon Sep 17 00:00:00 2001
+From 5c5216af99f81e518ee91b08f7fd0d90399d2dac Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Date: Thu, 5 Nov 2020 13:09:45 +0100
 Subject: [PATCH] hid/multitouch: Turn off Type Cover keyboard backlight when
@@ -231,7 +231,7 @@ index 2e72922e36f5..15f5f11c4b85 100644
 -- 
 2.38.0
 
-From ad8bf7a18e05b29f3b725808e084335de672fec3 Mon Sep 17 00:00:00 2001
+From b60b26903d04c5ab836dc68644c052cbf2cb8208 Mon Sep 17 00:00:00 2001
 From: PJungkamp <p.jungkamp@gmail.com>
 Date: Fri, 25 Feb 2022 12:04:25 +0100
 Subject: [PATCH] hid/multitouch: Add support for surface pro type cover tablet
