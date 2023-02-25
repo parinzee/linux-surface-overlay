@@ -1,4 +1,4 @@
-From 77466e97c2a57b14dc89cb09c6f33bbe00289a66 Mon Sep 17 00:00:00 2001
+From c6083e5449df5176fb983d6cc5e90493fdd52ce4 Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:56:57 +0200
 Subject: [PATCH] ACPI: delay enumeration of devices with a _DEP pointing to an
@@ -58,7 +58,7 @@ Patchset: cameras
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-index dbfa58e799e2..ccbd3f8b523e 100644
+index 0c6f06abe3f4..4fc320f424e8 100644
 --- a/drivers/acpi/scan.c
 +++ b/drivers/acpi/scan.c
 @@ -2106,6 +2106,9 @@ static acpi_status acpi_bus_check_add_2(acpi_handle handle, u32 lvl_not_used,
@@ -74,7 +74,7 @@ index dbfa58e799e2..ccbd3f8b523e 100644
 -- 
 2.39.2
 
-From 5a29cdef4f40c48e5af03fd21f48317edd071d1e Mon Sep 17 00:00:00 2001
+From e88abbaed5f9cec12fd13d7996224294802e951c Mon Sep 17 00:00:00 2001
 From: zouxiaoh <xiaohong.zou@intel.com>
 Date: Fri, 25 Jun 2021 08:52:59 +0800
 Subject: [PATCH] iommu: intel-ipu: use IOMMU passthrough mode for Intel IPUs
@@ -100,7 +100,7 @@ Patchset: cameras
  1 file changed, 30 insertions(+)
 
 diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 408c321b929a..6e58effbe12b 100644
+index af91ed003861..15581d157ba5 100644
 --- a/drivers/iommu/intel/iommu.c
 +++ b/drivers/iommu/intel/iommu.c
 @@ -37,6 +37,12 @@
@@ -116,7 +116,7 @@ index 408c321b929a..6e58effbe12b 100644
  #define IS_IPTS(pdev) ((pdev)->vendor == PCI_VENDOR_ID_INTEL &&	\
  			    ((pdev)->device == 0x9d3e))
  #define IS_AZALIA(pdev) ((pdev)->vendor == 0x8086 && (pdev)->device == 0x3a3e)
-@@ -289,12 +295,14 @@ EXPORT_SYMBOL_GPL(intel_iommu_enabled);
+@@ -290,12 +296,14 @@ EXPORT_SYMBOL_GPL(intel_iommu_enabled);
  
  static int dmar_map_gfx = 1;
  static int dmar_map_ipts = 1;
@@ -131,7 +131,7 @@ index 408c321b929a..6e58effbe12b 100644
  #define IDENTMAP_IPTS		16
  
  const struct iommu_ops intel_iommu_ops;
-@@ -2635,6 +2643,9 @@ static int device_def_domain_type(struct device *dev)
+@@ -2589,6 +2597,9 @@ static int device_def_domain_type(struct device *dev)
  		if ((iommu_identity_mapping & IDENTMAP_GFX) && IS_GFX_DEVICE(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
  
@@ -141,7 +141,7 @@ index 408c321b929a..6e58effbe12b 100644
  		if ((iommu_identity_mapping & IDENTMAP_IPTS) && IS_IPTS(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
  	}
-@@ -3026,6 +3037,9 @@ static int __init init_dmars(void)
+@@ -2980,6 +2991,9 @@ static int __init init_dmars(void)
  	if (!dmar_map_gfx)
  		iommu_identity_mapping |= IDENTMAP_GFX;
  
@@ -151,7 +151,7 @@ index 408c321b929a..6e58effbe12b 100644
  	if (!dmar_map_ipts)
  		iommu_identity_mapping |= IDENTMAP_IPTS;
  
-@@ -4784,6 +4798,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
+@@ -4809,6 +4823,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
  	dmar_map_gfx = 0;
  }
  
@@ -170,7 +170,7 @@ index 408c321b929a..6e58effbe12b 100644
  static void quirk_iommu_ipts(struct pci_dev *dev)
  {
  	if (!IS_IPTS(dev))
-@@ -4795,6 +4821,7 @@ static void quirk_iommu_ipts(struct pci_dev *dev)
+@@ -4820,6 +4846,7 @@ static void quirk_iommu_ipts(struct pci_dev *dev)
  	pci_info(dev, "Passthrough IOMMU for IPTS\n");
  	dmar_map_ipts = 0;
  }
@@ -178,7 +178,7 @@ index 408c321b929a..6e58effbe12b 100644
  /* G4x/GM45 integrated gfx dmar support is totally busted. */
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2a40, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2e00, quirk_iommu_igfx);
-@@ -4830,6 +4857,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
+@@ -4855,6 +4882,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163A, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163D, quirk_iommu_igfx);
  
@@ -191,7 +191,7 @@ index 408c321b929a..6e58effbe12b 100644
 -- 
 2.39.2
 
-From 6a75a52d08f7f622dde5f11bfa75de7b7925244b Mon Sep 17 00:00:00 2001
+From 8ec05c9a4d04f9179293bb6f289ce5321e168f0c Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sun, 10 Oct 2021 20:57:02 +0200
 Subject: [PATCH] platform/x86: int3472: Enable I2c daisy chain
@@ -228,7 +228,7 @@ index 5b8d1a9620a5..6a0ff035cf20 100644
 -- 
 2.39.2
 
-From 7e65c772074f621f1209056d1a23e0257e3ba2b0 Mon Sep 17 00:00:00 2001
+From f3810fd14e8271c5667e3d62f8125988dd6c51ca Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Thu, 28 Oct 2021 21:55:16 +0100
 Subject: [PATCH] media: i2c: Add driver for DW9719 VCM
@@ -247,10 +247,10 @@ Patchset: cameras
  create mode 100644 drivers/media/i2c/dw9719.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index d4822ae39e39..41e9ec6c55d5 100644
+index 135d93368d36..af817984d1e5 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -6286,6 +6286,13 @@ T:	git git://linuxtv.org/media_tree.git
+@@ -6362,6 +6362,13 @@ T:	git git://linuxtv.org/media_tree.git
  F:	Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
  F:	drivers/media/i2c/dw9714.c
  
@@ -265,10 +265,10 @@ index d4822ae39e39..41e9ec6c55d5 100644
  M:	Dongchun Zhu <dongchun.zhu@mediatek.com>
  L:	linux-media@vger.kernel.org
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 7806d4b81716..98d081efeef7 100644
+index 833241897d63..8cfd7b6c4bf5 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
-@@ -821,6 +821,17 @@ config VIDEO_DW9714
+@@ -847,6 +847,17 @@ config VIDEO_DW9714
  	  capability. This is designed for linear control of
  	  voice coil motors, controlled via I2C serial interface.
  
@@ -287,7 +287,7 @@ index 7806d4b81716..98d081efeef7 100644
  	tristate "DW9768 lens voice coil support"
  	depends on I2C && VIDEO_DEV
 diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 0a2933103dd9..b82a07c76388 100644
+index 4d6c052bb5a7..29e4d61ce310 100644
 --- a/drivers/media/i2c/Makefile
 +++ b/drivers/media/i2c/Makefile
 @@ -30,6 +30,7 @@ obj-$(CONFIG_VIDEO_CS5345) += cs5345.o
@@ -732,7 +732,7 @@ index 000000000000..180b04d2a6b3
 -- 
 2.39.2
 
-From 9c38ac000528f1f951195723c419e494e772740d Mon Sep 17 00:00:00 2001
+From 14b4cb6976a21fc04f2e7481032a1e3f3e083d38 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Wed, 4 May 2022 23:21:45 +0100
 Subject: [PATCH] media: ipu3-cio2: Move functionality from .complete() to
@@ -847,7 +847,7 @@ index 390bd5ea3472..76339fb842bf 100644
 -- 
 2.39.2
 
-From 28bb2c06321cb49b43023115dbf8d1c6799fddac Mon Sep 17 00:00:00 2001
+From 98fa14a45b8af9a7d5d5b9fb6c371c391aaef172 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Thu, 2 Jun 2022 22:15:56 +0100
 Subject: [PATCH] media: ipu3-cio2: Re-add .complete() to ipu3-cio2
@@ -890,7 +890,7 @@ index 76339fb842bf..eb7aa269ec2b 100644
 -- 
 2.39.2
 
-From 9611373ae1fa6514a807325294e689e74c395195 Mon Sep 17 00:00:00 2001
+From 5f837d5c2a8f85bc3448339032f20a120e104faf Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Fri, 15 Jul 2022 23:48:00 +0200
 Subject: [PATCH] drivers/media/i2c: Fix DW9719 dependencies
@@ -904,10 +904,10 @@ Patchset: cameras
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 98d081efeef7..c67966cafe10 100644
+index 8cfd7b6c4bf5..11b8acd7cc5f 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
-@@ -823,7 +823,7 @@ config VIDEO_DW9714
+@@ -849,7 +849,7 @@ config VIDEO_DW9714
  
  config VIDEO_DW9719
  	tristate "DW9719 lens voice coil support"
