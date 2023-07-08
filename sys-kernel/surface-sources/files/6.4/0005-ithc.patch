@@ -1,4 +1,4 @@
-From 616e4d5be660b43bfdbeb482a0c51b9fa41ad8db Mon Sep 17 00:00:00 2001
+From 22887bcb046c16268673c0386fdd9986b0178eee Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Sun, 11 Dec 2022 12:03:38 +0100
 Subject: [PATCH] iommu: intel: Disable source id verification for ITHC
@@ -10,7 +10,7 @@ Patchset: ithc
  1 file changed, 16 insertions(+)
 
 diff --git a/drivers/iommu/intel/irq_remapping.c b/drivers/iommu/intel/irq_remapping.c
-index df9e261af0b5..bc2a0aefedf2 100644
+index a1b987335b31..970805409470 100644
 --- a/drivers/iommu/intel/irq_remapping.c
 +++ b/drivers/iommu/intel/irq_remapping.c
 @@ -390,6 +390,22 @@ static int set_msi_sid(struct irte *irte, struct pci_dev *dev)
@@ -39,7 +39,7 @@ index df9e261af0b5..bc2a0aefedf2 100644
 -- 
 2.41.0
 
-From e8ad126fce6c281ce4fc654d63aae47799d3e00a Mon Sep 17 00:00:00 2001
+From ce2c4a772d587cec136e43e18fab8685700e535b Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Sun, 11 Dec 2022 12:10:54 +0100
 Subject: [PATCH] hid: Add support for Intel Touch Host Controller

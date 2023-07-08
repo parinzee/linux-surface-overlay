@@ -1,4 +1,4 @@
-From cb0b2a6ca381cf822c5b9f2b0560fb727110a37e Mon Sep 17 00:00:00 2001
+From 5e58b7ceec0d77a42fd35878e419e77a930e8dbf Mon Sep 17 00:00:00 2001
 From: Tsuchiya Yuto <kitakar@gmail.com>
 Date: Sun, 18 Oct 2020 16:42:44 +0900
 Subject: [PATCH] (surface3-oemb) add DMI matches for Surface 3 with broken DMI
@@ -58,7 +58,7 @@ index ca4602bcc7de..490b9731068a 100644
  	{ }
  };
 diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 620ecbfa4a7a..b07d06d2971a 100644
+index 7c7cbb6362ea..81a8ff40e86e 100644
 --- a/sound/soc/codecs/rt5645.c
 +++ b/sound/soc/codecs/rt5645.c
 @@ -3717,6 +3717,15 @@ static const struct dmi_system_id dmi_platform_data[] = {
