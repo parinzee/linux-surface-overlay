@@ -1,0 +1,12 @@
+[Unit]
+Description=Intel Precise Touch & Stylus Daemon
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/iptsd
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
