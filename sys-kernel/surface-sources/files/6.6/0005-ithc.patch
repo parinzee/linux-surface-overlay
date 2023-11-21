@@ -1,4 +1,4 @@
-From 7246313c2540ff2261dcd3f7c61a1f575e26f5b8 Mon Sep 17 00:00:00 2001
+From 033de13abc9653b2d773f06182465e03d5d6463b Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Sun, 11 Dec 2022 12:03:38 +0100
 Subject: [PATCH] iommu: intel: Disable source id verification for ITHC
@@ -10,10 +10,10 @@ Patchset: ithc
  1 file changed, 16 insertions(+)
 
 diff --git a/drivers/iommu/intel/irq_remapping.c b/drivers/iommu/intel/irq_remapping.c
-index 5962bb5027d06..86fa129d10d40 100644
+index 29b9e55dcf26c..986e91c813ae1 100644
 --- a/drivers/iommu/intel/irq_remapping.c
 +++ b/drivers/iommu/intel/irq_remapping.c
-@@ -396,6 +396,22 @@ static int set_msi_sid(struct irte *irte, struct pci_dev *dev)
+@@ -386,6 +386,22 @@ static int set_msi_sid(struct irte *irte, struct pci_dev *dev)
  	data.busmatch_count = 0;
  	pci_for_each_dma_alias(dev, set_msi_sid_cb, &data);
  
@@ -37,9 +37,9 @@ index 5962bb5027d06..86fa129d10d40 100644
  	 * DMA alias provides us with a PCI device and alias.  The only case
  	 * where the it will return an alias on a different bus than the
 -- 
-2.42.1
+2.42.0
 
-From ffa0c316b56567e108b3b6b844da1009b1252d1d Mon Sep 17 00:00:00 2001
+From 0dd32bcfb70f9e36cfa009d94cd6c86a4839cff3 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Sun, 11 Dec 2022 12:10:54 +0100
 Subject: [PATCH] hid: Add support for Intel Touch Host Controller
@@ -72,21 +72,21 @@ Patchset: ithc
  create mode 100644 drivers/hid/ithc/ithc.h
 
 diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index cdc6fdba3a873..1479d482ca034 100644
+index 0b9d245d10e54..8ba1c309228be 100644
 --- a/drivers/hid/Kconfig
 +++ b/drivers/hid/Kconfig
-@@ -1293,4 +1293,6 @@ source "drivers/hid/surface-hid/Kconfig"
+@@ -1347,4 +1347,6 @@ source "drivers/hid/surface-hid/Kconfig"
  
  source "drivers/hid/ipts/Kconfig"
  
 +source "drivers/hid/ithc/Kconfig"
 +
- endmenu
+ endif # HID_SUPPORT
 diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index e48300bcea9be..8ef7308b0f9d7 100644
+index 2ef21b257d0b5..e94b79727b489 100644
 --- a/drivers/hid/Makefile
 +++ b/drivers/hid/Makefile
-@@ -166,3 +166,4 @@ obj-$(CONFIG_AMD_SFH_HID)       += amd-sfh-hid/
+@@ -171,3 +171,4 @@ obj-$(CONFIG_AMD_SFH_HID)       += amd-sfh-hid/
  obj-$(CONFIG_SURFACE_HID_CORE)  += surface-hid/
  
  obj-$(CONFIG_HID_IPTS)          += ipts/
@@ -1429,9 +1429,9 @@ index 0000000000000..6a9b0d480bc15
 +void ithc_log_regs(struct ithc *ithc);
 +
 -- 
-2.42.1
+2.42.0
 
-From eeb69e19302b4136b85be57cbc5207f7796d4b2f Mon Sep 17 00:00:00 2001
+From 9f8d2a0f4012644f56ed8dfd322e575b57e1c208 Mon Sep 17 00:00:00 2001
 From: quo <tuple@list.ru>
 Date: Mon, 23 Oct 2023 10:15:29 +0200
 Subject: [PATCH] Update ITHC from module repo
@@ -3020,5 +3020,5 @@ index 6a9b0d480bc15..028e55a4ec53e 100644
  void ithc_log_regs(struct ithc *ithc);
  
 -- 
-2.42.1
+2.42.0
 

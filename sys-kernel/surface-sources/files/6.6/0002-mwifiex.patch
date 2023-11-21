@@ -1,4 +1,4 @@
-From 735b0bda0c021f6f1f18d1c18b70f6b7b7e236c3 Mon Sep 17 00:00:00 2001
+From 35b3c5195c9fc191de6b5a6e4361762aa37edad2 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Date: Tue, 3 Nov 2020 13:28:04 +0100
 Subject: [PATCH] mwifiex: Add quirk resetting the PCI bridge on MS Surface
@@ -163,9 +163,9 @@ index d6ff964aec5bf..5d30ae39d65ec 100644
  void mwifiex_initialize_quirks(struct pcie_service_card *card);
  int mwifiex_pcie_reset_d3cold_quirk(struct pci_dev *pdev);
 -- 
-2.42.1
+2.42.0
 
-From 97a33ab2cf4f090bea7ee2a4ad60f594345c103f Mon Sep 17 00:00:00 2001
+From 241da24644ea2f5b8119019448b638aa8df6ab26 Mon Sep 17 00:00:00 2001
 From: Tsuchiya Yuto <kitakar@gmail.com>
 Date: Sun, 4 Oct 2020 00:11:49 +0900
 Subject: [PATCH] mwifiex: pcie: disable bridge_d3 for Surface gen4+
@@ -318,9 +318,9 @@ index 5d30ae39d65ec..c14eb56eb9118 100644
  void mwifiex_initialize_quirks(struct pcie_service_card *card);
  int mwifiex_pcie_reset_d3cold_quirk(struct pci_dev *pdev);
 -- 
-2.42.1
+2.42.0
 
-From 3bcf533f0cd90ad95d7cfbd67d732ef462537af9 Mon Sep 17 00:00:00 2001
+From d20b58f9e2ccec57c66864e79c291c2618ab2dbe Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Date: Thu, 25 Mar 2021 11:33:02 +0100
 Subject: [PATCH] Bluetooth: btusb: Lower passive lescan interval on Marvell
@@ -356,7 +356,7 @@ Patchset: mwifiex
  1 file changed, 15 insertions(+)
 
 diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index ca9e2a210fff2..0c422ed950317 100644
+index 499f4809fcdf3..2d442e080ca28 100644
 --- a/drivers/bluetooth/btusb.c
 +++ b/drivers/bluetooth/btusb.c
 @@ -65,6 +65,7 @@ static struct usb_driver btusb_driver;
@@ -367,7 +367,7 @@ index ca9e2a210fff2..0c422ed950317 100644
  
  static const struct usb_device_id btusb_table[] = {
  	/* Generic Bluetooth USB device */
-@@ -468,6 +469,7 @@ static const struct usb_device_id blacklist_table[] = {
+@@ -468,6 +469,7 @@ static const struct usb_device_id quirks_table[] = {
  	{ USB_DEVICE(0x1286, 0x2044), .driver_info = BTUSB_MARVELL },
  	{ USB_DEVICE(0x1286, 0x2046), .driver_info = BTUSB_MARVELL },
  	{ USB_DEVICE(0x1286, 0x204e), .driver_info = BTUSB_MARVELL },
@@ -375,7 +375,7 @@ index ca9e2a210fff2..0c422ed950317 100644
  
  	/* Intel Bluetooth devices */
  	{ USB_DEVICE(0x8087, 0x0025), .driver_info = BTUSB_INTEL_COMBINED },
-@@ -4317,6 +4319,19 @@ static int btusb_probe(struct usb_interface *intf,
+@@ -4388,6 +4390,19 @@ static int btusb_probe(struct usb_interface *intf,
  	if (id->driver_info & BTUSB_MARVELL)
  		hdev->set_bdaddr = btusb_set_bdaddr_marvell;
  
@@ -396,5 +396,5 @@ index ca9e2a210fff2..0c422ed950317 100644
  	    (id->driver_info & BTUSB_MEDIATEK)) {
  		hdev->setup = btusb_mtk_setup;
 -- 
-2.42.1
+2.42.0
 

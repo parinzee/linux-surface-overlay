@@ -1,4 +1,4 @@
-From 02ed6923b8c4a9e3e50c2f1afd65804dc93fe466 Mon Sep 17 00:00:00 2001
+From c4cbbcd24ea10e6558753174ae6dabcc9b54e438 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 22 Oct 2023 14:57:11 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for
@@ -29,9 +29,9 @@ index 0fe5be5396525..0d8c8395c5886 100644
  	{ "MSHW0123", (unsigned long)ssam_node_group_sls },
  
 -- 
-2.42.1
+2.42.0
 
-From fb96af87fb643dccbb22cadecd0f386734caa815 Mon Sep 17 00:00:00 2001
+From 0bb0adce3efad7a43fc3811f6cc24148c8c75253 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Mon, 20 Nov 2023 19:47:00 +0100
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for
@@ -99,5 +99,5 @@ index 0d8c8395c5886..530db4db71aba 100644
  	{ },
  };
 -- 
-2.42.1
+2.42.0
 
