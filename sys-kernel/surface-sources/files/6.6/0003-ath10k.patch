@@ -1,4 +1,4 @@
-From b2103933afb95bd4ef6d5f6f3a7df1dcaa892258 Mon Sep 17 00:00:00 2001
+From c6f0985fae241ed43ea1245c9e5861e2c728e21e Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 27 Feb 2021 00:45:52 +0100
 Subject: [PATCH] ath10k: Add module parameters to override board files
@@ -117,5 +117,5 @@ index 6cdb225b7eacc..19c036751fb16 100644
  	ret = firmware_request_nowarn(&fw, filename, ar->dev);
  	ath10k_dbg(ar, ATH10K_DBG_BOOT, "boot fw request '%s': %d\n",
 -- 
-2.42.1
+2.42.0
 
