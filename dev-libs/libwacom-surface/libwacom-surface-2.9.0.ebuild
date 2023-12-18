@@ -12,7 +12,7 @@ SRC_URI="https://github.com/linuxwacom/libwacom/releases/download/libwacom-${PV}
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm ~arm64 ~ia64 ~ppc ~ppc64 sparc x86"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 
@@ -45,22 +45,22 @@ python_check_deps() {
 S="${WORKDIR}/libwacom-${PV}"
 
 src_prepare() {
-	eapply "${FILESDIR}/2.8.0/0001-Add-support-for-BUS_VIRTUAL.patch"
-	eapply "${FILESDIR}/2.8.0/0002-Add-support-for-Intel-Management-Engine-bus.patch"
-	eapply "${FILESDIR}/2.8.0/0003-data-Add-Microsoft-Surface-Pro-3.patch"
-	eapply "${FILESDIR}/2.8.0/0004-data-Add-Microsoft-Surface-Pro-4.patch"
-	eapply "${FILESDIR}/2.8.0/0005-data-Add-Microsoft-Surface-Pro-5.patch"
-	eapply "${FILESDIR}/2.8.0/0006-data-Add-Microsoft-Surface-Pro-6.patch"
-	eapply "${FILESDIR}/2.8.0/0007-data-Add-Microsoft-Surface-Pro-7.patch"
-	eapply "${FILESDIR}/2.8.0/0008-data-Add-Microsoft-Surface-Pro-7.patch"
-	eapply "${FILESDIR}/2.8.0/0009-data-Add-Microsoft-Surface-Pro-8.patch"
-	eapply "${FILESDIR}/2.8.0/0010-data-Add-Microsoft-Surface-Pro-9.patch"
-	eapply "${FILESDIR}/2.8.0/0011-data-Add-Microsoft-Surface-Book.patch"
-	eapply "${FILESDIR}/2.8.0/0012-data-Add-Microsoft-Surface-Book-2-13.5.patch"
-	eapply "${FILESDIR}/2.8.0/0013-data-Add-Microsoft-Surface-Book-2-15.patch"
-	eapply "${FILESDIR}/2.8.0/0014-data-Add-Microsoft-Surface-Book-3-13.5.patch"
-	eapply "${FILESDIR}/2.8.0/0015-data-Add-Microsoft-Surface-Book-3-15.patch"
-	eapply "${FILESDIR}/2.8.0/0016-data-Add-Microsoft-Surface-Laptop-Studio.patch"
+	eapply "${FILESDIR}/2.9.0/0001-Add-support-for-BUS_VIRTUAL.patch"
+	eapply "${FILESDIR}/2.9.0/0002-Add-support-for-Intel-Management-Engine-bus.patch"
+	eapply "${FILESDIR}/2.9.0/0003-data-Add-Microsoft-Surface-Pro-3.patch"
+	eapply "${FILESDIR}/2.9.0/0004-data-Add-Microsoft-Surface-Pro-4.patch"
+	eapply "${FILESDIR}/2.9.0/0005-data-Add-Microsoft-Surface-Pro-5.patch"
+	eapply "${FILESDIR}/2.9.0/0006-data-Add-Microsoft-Surface-Pro-6.patch"
+	eapply "${FILESDIR}/2.9.0/0007-data-Add-Microsoft-Surface-Pro-7.patch"
+	eapply "${FILESDIR}/2.9.0/0008-data-Add-Microsoft-Surface-Pro-7.patch"
+	eapply "${FILESDIR}/2.9.0/0009-data-Add-Microsoft-Surface-Pro-8.patch"
+	eapply "${FILESDIR}/2.9.0/0010-data-Add-Microsoft-Surface-Pro-9.patch"
+	eapply "${FILESDIR}/2.9.0/0011-data-Add-Microsoft-Surface-Book.patch"
+	eapply "${FILESDIR}/2.9.0/0012-data-Add-Microsoft-Surface-Book-2-13.5.patch"
+	eapply "${FILESDIR}/2.9.0/0013-data-Add-Microsoft-Surface-Book-2-15.patch"
+	eapply "${FILESDIR}/2.9.0/0014-data-Add-Microsoft-Surface-Book-3-13.5.patch"
+	eapply "${FILESDIR}/2.9.0/0015-data-Add-Microsoft-Surface-Book-3-15.patch"
+	eapply "${FILESDIR}/2.9.0/0016-data-Add-Microsoft-Surface-Laptop-Studio.patch"
 
 	eapply_user
 }
