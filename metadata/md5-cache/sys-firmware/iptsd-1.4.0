@@ -1,5 +1,5 @@
-BDEPEND=dev-util/ninja sys-devel/gcc dev-util/meson >=dev-util/meson-0.62.2 >=dev-util/ninja-1.8.2 dev-util/meson-format-array virtual/pkgconfig
-DEFINED_PHASES=compile configure install test
+BDEPEND=dev-build/ninja sys-devel/gcc dev-build/meson >=dev-build/meson-1.2.1 app-alternatives/ninja dev-build/meson-format-array virtual/pkgconfig
+DEFINED_PHASES=compile configure install postinst test
 DEPEND=dev-libs/hidapi dev-cpp/cli11 dev-libs/spdlog dev-cpp/ms-gsl dev-libs/inih
 DESCRIPTION=A userspace daemon for the Intel Precise Touch & Stylus technology
 EAPI=8
@@ -10,5 +10,5 @@ LICENSE=GPL-2
 RDEPEND=dev-libs/hidapi dev-cpp/cli11 dev-libs/spdlog dev-cpp/ms-gsl dev-libs/inih
 SLOT=0
 SRC_URI=https://github.com/linux-surface/iptsd/archive/v1.4.0.tar.gz -> iptsd-1.4.0.tar.gz
-_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	ninja-utils	39e7a84b06eff4efd9f2e0c3d1668b98	toolchain-funcs	fbbbc99d10168de2926e06da7169b8dc	multilib	c19072c3cd7ac5cb21de013f7e9832e0	python-utils-r1	12aa0037eb004139215ff04894d52b28	meson	af1ca7ad21fdd31fcc4fa91d8abca977	systemd	c8b03e8df84486aa991d4396686e8942
-_md5_=35ca19dff2d71d7c6c4163d72e8be907
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	python-utils-r1	042f4cc53680245bf99a84669b94155a	meson	e322276188f86eacb29ae081ba5485c8	systemd	c8b03e8df84486aa991d4396686e8942
+_md5_=e98f78afb1d5115649a9f472215f9b41
