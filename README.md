@@ -25,7 +25,7 @@ eg:```eselect repository enable linux-surface```
 
 
 # Packages List
-- surface-sources-6.7.3
+- surface-sources-6.7.4
 - iptsd-2
 - libwacom-surface-2.9.0
 - surface-control-0.4.6.2 (I need help for testing this as I don't personally use it).
