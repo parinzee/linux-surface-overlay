@@ -1,4 +1,4 @@
-From 04069751b144350632ec45b5b25c2cc01d5f34ef Mon Sep 17 00:00:00 2001
+From 302d8dc26283bc10ba22bc549c41292d00125e60 Mon Sep 17 00:00:00 2001
 From: Sachi King <nakato@nakato.io>
 Date: Sat, 29 May 2021 17:47:38 +1000
 Subject: [PATCH] ACPI: Add quirk for Surface Laptop 4 AMD missing irq 7
@@ -65,7 +65,7 @@ index 85a3ce2a3666..2c0e04a3a697 100644
 -- 
 2.44.0
 
-From 8e2f2b852776fca1dd0ab8728be2303051cb19e1 Mon Sep 17 00:00:00 2001
+From d2a793e4fd47cd1cba2847915e7078671d9e9ea5 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Thu, 3 Jun 2021 14:04:26 +0200
 Subject: [PATCH] ACPI: Add AMD 13" Surface Laptop 4 model to irq 7 override
