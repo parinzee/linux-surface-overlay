@@ -1,4 +1,4 @@
-From 3854d7e575b1091a994c58ef8ee2a89f4efced12 Mon Sep 17 00:00:00 2001
+From aa49dc59b192cc038ca789ac70215d7492f043cb Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 19 Feb 2023 22:12:24 +0100
 Subject: [PATCH] PCI: Add quirk to prevent calling shutdown mehtod
@@ -37,10 +37,10 @@ index 51ec9e7e784f..40554890d721 100644
  
  	if (drv && drv->shutdown)
 diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index d55a3ffae4b8..e8614d8476fe 100644
+index d797df6e5f3e..c674ee496a0b 100644
 --- a/drivers/pci/quirks.c
 +++ b/drivers/pci/quirks.c
-@@ -6227,3 +6227,39 @@ static void pci_fixup_d3cold_delay_1sec(struct pci_dev *pdev)
+@@ -6250,3 +6250,39 @@ static void pci_fixup_d3cold_delay_1sec(struct pci_dev *pdev)
  	pdev->d3cold_delay = 1000;
  }
  DECLARE_PCI_FIXUP_FINAL(0x5555, 0x0004, pci_fixup_d3cold_delay_1sec);
@@ -81,7 +81,7 @@ index d55a3ffae4b8..e8614d8476fe 100644
 +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x466d, quirk_no_shutdown);  // Thunderbolt 4 NHI
 +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x46a8, quirk_no_shutdown);  // GPU
 diff --git a/include/linux/pci.h b/include/linux/pci.h
-index bc80960fad7c..eec5704d1000 100644
+index 7ab0d13672da..8d8d9225e0db 100644
 --- a/include/linux/pci.h
 +++ b/include/linux/pci.h
 @@ -465,6 +465,7 @@ struct pci_dev {

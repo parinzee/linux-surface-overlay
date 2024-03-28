@@ -1,4 +1,4 @@
-From fb7e9294f3970a450b891c2cc7b2195861d454e3 Mon Sep 17 00:00:00 2001
+From 973bf943acca4abdd932b5fdff032de0af07f96e Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 22 Oct 2023 14:57:11 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for
@@ -31,7 +31,7 @@ index aeb3feae40ff..2bc4977037fc 100644
 -- 
 2.44.0
 
-From 2de16abc5d0d2334e2935b1bdb3667a95d0009f2 Mon Sep 17 00:00:00 2001
+From 7dedc84364f9c1fb73d271c859dce19b4a9644d6 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Mon, 20 Nov 2023 19:47:00 +0100
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for
@@ -101,7 +101,7 @@ index 2bc4977037fc..26cb6229ad16 100644
 -- 
 2.44.0
 
-From c06e370b5ed873b603aa0dc2faafe24a9e63b3e8 Mon Sep 17 00:00:00 2001
+From 96a7b3dd527f3e1b97e2d089a727c16cd5045aa5 Mon Sep 17 00:00:00 2001
 From: Ivor Wanders <ivor@iwanders.net>
 Date: Mon, 18 Dec 2023 19:21:32 -0500
 Subject: [PATCH] platform/surface: aggregator_registry: add entry for fan
@@ -146,7 +146,7 @@ index 26cb6229ad16..f02a933160ff 100644
 -- 
 2.44.0
 
-From 63dcbbcad69219e1487db46a5c26c1ebdd9ef6be Mon Sep 17 00:00:00 2001
+From b4eb65349df9859f65aa9990c24c5036d35382da Mon Sep 17 00:00:00 2001
 From: Ivor Wanders <ivor@iwanders.net>
 Date: Thu, 30 Nov 2023 20:20:24 -0500
 Subject: [PATCH] hwmon: add fan speed monitoring driver for Surface devices
@@ -170,10 +170,10 @@ Patchset: surface-sam
  create mode 100644 drivers/hwmon/surface_fan.c
 
 diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 72f4e6065bae..7c254562abd6 100644
+index c7ed1f73ac06..58be92e94a8d 100644
 --- a/Documentation/hwmon/index.rst
 +++ b/Documentation/hwmon/index.rst
-@@ -204,6 +204,7 @@ Hardware Monitoring Kernel Drivers
+@@ -208,6 +208,7 @@ Hardware Monitoring Kernel Drivers
     smsc47m1
     sparx5-temp
     stpddc60
@@ -213,10 +213,10 @@ index 000000000000..07942574c4f0
 +``fan1_input``          RO      Current fan speed in RPM.
 +======================= ======= =========================================
 diff --git a/MAINTAINERS b/MAINTAINERS
-index a7c4cf8201e0..77eb076e77da 100644
+index 1aabf1c15bb3..b6416cf3f022 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -14331,6 +14331,14 @@ F:	Documentation/driver-api/surface_aggregator/clients/dtx.rst
+@@ -14576,6 +14576,14 @@ F:	Documentation/driver-api/surface_aggregator/clients/dtx.rst
  F:	drivers/platform/surface/surface_dtx.c
  F:	include/uapi/linux/surface_aggregator/dtx.h
  
@@ -232,10 +232,10 @@ index a7c4cf8201e0..77eb076e77da 100644
  M:	Maximilian Luz <luzmaximilian@gmail.com>
  L:	platform-driver-x86@vger.kernel.org
 diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index cf27523eed5a..1cef428c79ea 100644
+index a608264da87d..e762f6138970 100644
 --- a/drivers/hwmon/Kconfig
 +++ b/drivers/hwmon/Kconfig
-@@ -1983,6 +1983,19 @@ config SENSORS_SFCTEMP
+@@ -1994,6 +1994,19 @@ config SENSORS_SFCTEMP
  	  This driver can also be built as a module.  If so, the module
  	  will be called sfctemp.
  
@@ -256,10 +256,10 @@ index cf27523eed5a..1cef428c79ea 100644
  	tristate "Texas Instruments ADC128D818"
  	depends on I2C
 diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index e84bd9685b5c..30a284fc5ab6 100644
+index 47be39af5c03..30cc90f40844 100644
 --- a/drivers/hwmon/Makefile
 +++ b/drivers/hwmon/Makefile
-@@ -200,6 +200,7 @@ obj-$(CONFIG_SENSORS_SMSC47M1)	+= smsc47m1.o
+@@ -201,6 +201,7 @@ obj-$(CONFIG_SENSORS_SMSC47M1)	+= smsc47m1.o
  obj-$(CONFIG_SENSORS_SMSC47M192)+= smsc47m192.o
  obj-$(CONFIG_SENSORS_SPARX5)	+= sparx5-temp.o
  obj-$(CONFIG_SENSORS_STTS751)	+= stts751.o
@@ -369,7 +369,7 @@ index 000000000000..7c2e3ae3eb40
 -- 
 2.44.0
 
-From 5f549c253e4df330fa8f311fe151df80e199bec4 Mon Sep 17 00:00:00 2001
+From 5c18bed9c7ad073b61e3c3686dc4bc1858f958dc Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 30 Dec 2023 18:07:54 +0100
 Subject: [PATCH] hwmon: Add thermal sensor driver for Surface Aggregator
@@ -391,10 +391,10 @@ Patchset: surface-sam
  create mode 100644 drivers/hwmon/surface_temp.c
 
 diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 1cef428c79ea..ca20716911ad 100644
+index e762f6138970..41261b49f8be 100644
 --- a/drivers/hwmon/Kconfig
 +++ b/drivers/hwmon/Kconfig
-@@ -1996,6 +1996,16 @@ config SENSORS_SURFACE_FAN
+@@ -2007,6 +2007,16 @@ config SENSORS_SURFACE_FAN
  
  	  Select M or Y here, if you want to be able to read the fan's speed.
  
@@ -412,10 +412,10 @@ index 1cef428c79ea..ca20716911ad 100644
  	tristate "Texas Instruments ADC128D818"
  	depends on I2C
 diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index 30a284fc5ab6..a6bcde6b4843 100644
+index 30cc90f40844..6644fd4598a4 100644
 --- a/drivers/hwmon/Makefile
 +++ b/drivers/hwmon/Makefile
-@@ -201,6 +201,7 @@ obj-$(CONFIG_SENSORS_SMSC47M192)+= smsc47m192.o
+@@ -202,6 +202,7 @@ obj-$(CONFIG_SENSORS_SMSC47M192)+= smsc47m192.o
  obj-$(CONFIG_SENSORS_SPARX5)	+= sparx5-temp.o
  obj-$(CONFIG_SENSORS_STTS751)	+= stts751.o
  obj-$(CONFIG_SENSORS_SURFACE_FAN)+= surface_fan.o
@@ -597,7 +597,7 @@ index 000000000000..48c3e826713f
 -- 
 2.44.0
 
-From 3ccfa3b6be4794f247488f7e665ba91793ec09c7 Mon Sep 17 00:00:00 2001
+From 8b1e37ad9423a6fdf8a8b3bfb1e15aadefe136de Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 30 Dec 2023 18:12:23 +0100
 Subject: [PATCH] hwmon: surface_temp: Add support for sensor names
@@ -792,7 +792,7 @@ index 48c3e826713f..4c08926139db 100644
 -- 
 2.44.0
 
-From 8ccf7b86ad270655bd1e8cd0ab8d2ff475ad0ea7 Mon Sep 17 00:00:00 2001
+From 9b490a17f59518e59cf3c77c103bf5ddc52041a3 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 30 Dec 2023 18:21:12 +0100
 Subject: [PATCH] platform/surface: aggregator_registry: Add support for
@@ -835,7 +835,7 @@ index f02a933160ff..67686042e009 100644
 -- 
 2.44.0
 
-From 8907607c42c94186e3be8c385cf82493f2abd164 Mon Sep 17 00:00:00 2001
+From ec0b680c0ce36ef6bffd682e10589cf5d8d467ae Mon Sep 17 00:00:00 2001
 From: Ivor Wanders <ivor@iwanders.net>
 Date: Sat, 16 Dec 2023 15:56:39 -0500
 Subject: [PATCH] platform/surface: platform_profile: add fan profile switching
@@ -845,6 +845,7 @@ interact with both the TMP and FAN subystems. Add functionality that
 switches the fan profile when the platform profile is changed.
 
 Signed-off-by: Ivor Wanders <ivor@iwanders.net>
+Patchset: surface-sam
 ---
  .../surface/surface_aggregator_registry.c     | 38 +++++---
  .../surface/surface_platform_profile.c        | 86 ++++++++++++++++---
