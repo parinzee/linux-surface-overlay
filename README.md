@@ -25,10 +25,10 @@ eg:```eselect repository enable linux-surface```
 
 
 # Packages List
-- surface-sources-5.14.16
-- iptsd-0.4
-- libwacom-surface-1.9
-- surface-control-9999 (I need help for testing this as I don't personally use it).
+- surface-sources-6.7.8
+- iptsd-2
+- libwacom-surface-2.9.0
+- surface-control-0.4.6.2 (I need help for testing this as I don't personally use it).
 
 # Information
 - *surface-sources* is the normal gentoo-sources with surface patchsets installed.
