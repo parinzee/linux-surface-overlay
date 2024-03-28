@@ -2,13 +2,13 @@ EAPI="8"
 ETYPE="sources"
 K_SECURITY_UNSUPPORTED="1"
 K_WANT_GENPATCHES="base extras experimental"
-K_GENPATCHES_VER="90"
+K_GENPATCHES_VER="28"
 
 inherit kernel-2
 detect_version
 detect_arch
 
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 HOMEPAGE="https://github.com/Parinz/linux-surface-overlay/"
 IUSE="experimental"
 
@@ -17,20 +17,20 @@ SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}"
 
 
 src_prepare() {
-	eapply "${FILESDIR}/6.1/0001-surface3-oemb.patch"
-	eapply "${FILESDIR}/6.1/0002-mwifiex.patch"
-	eapply "${FILESDIR}/6.1/0003-ath10k.patch"
-	eapply "${FILESDIR}/6.1/0004-ipts.patch"
-	eapply "${FILESDIR}/6.1/0005-ithc.patch"
-	eapply "${FILESDIR}/6.1/0006-surface-sam.patch"
-	eapply "${FILESDIR}/6.1/0007-surface-sam-over-hid.patch"
-	eapply "${FILESDIR}/6.1/0008-surface-button.patch"
-	eapply "${FILESDIR}/6.1/0009-surface-typecover.patch"
-	eapply "${FILESDIR}/6.1/0010-surface-shutdown.patch"
-	eapply "${FILESDIR}/6.1/0011-surface-gpe.patch"
-	eapply "${FILESDIR}/6.1/0012-cameras.patch"
-	eapply "${FILESDIR}/6.1/0013-amd-gpio.patch"
-	eapply "${FILESDIR}/6.1/0014-rtc.patch"
+	eapply "${FILESDIR}/6.6/0001-surface3-oemb.patch"
+	eapply "${FILESDIR}/6.6/0002-mwifiex.patch"
+	eapply "${FILESDIR}/6.6/0003-ath10k.patch"
+	eapply "${FILESDIR}/6.6/0004-ipts.patch"
+	eapply "${FILESDIR}/6.6/0005-ithc.patch"
+	eapply "${FILESDIR}/6.6/0006-surface-sam.patch"
+	eapply "${FILESDIR}/6.6/0007-surface-sam-over-hid.patch"
+	eapply "${FILESDIR}/6.6/0008-surface-button.patch"
+	eapply "${FILESDIR}/6.6/0009-surface-typecover.patch"
+	eapply "${FILESDIR}/6.6/0010-surface-shutdown.patch"
+	eapply "${FILESDIR}/6.6/0011-surface-gpe.patch"
+	eapply "${FILESDIR}/6.6/0012-cameras.patch"
+	eapply "${FILESDIR}/6.6/0013-amd-gpio.patch"
+	eapply "${FILESDIR}/6.6/0014-rtc.patch"
 	eapply_user
 }
 
