@@ -1,0 +1,6 @@
+#!/sbin/openrc-run
+
+description="Touch processing daemon for Microsoft Surface devices using Intel Precise Touch technology."
+command="iptsd-run"
+pidfile="/run/iptsd.pid"
+start_stop_daemon_args="-bm"

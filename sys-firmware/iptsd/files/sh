@@ -1,0 +1,8 @@
+#!/bin/sh
+
+trap "pkill -P \"$$\"; exit" 15
+while true; do
+iptsd $(iptsd-find-hidraw) &
+wait $!
+sleep 1
+done
