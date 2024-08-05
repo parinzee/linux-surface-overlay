@@ -1,4 +1,4 @@
-From 0a65c8b311295b6fda9386f397a4adc1e3dc28b5 Mon Sep 17 00:00:00 2001
+From fa4500c4ae1546dba5d5e4fbada8e6d0406adab0 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 9 Jun 2024 19:48:58 +0200
 Subject: [PATCH] Revert "efi/x86: Set the PE/COFF header's NX compat flag

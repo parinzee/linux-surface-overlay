@@ -1,4 +1,4 @@
-From aa49dc59b192cc038ca789ac70215d7492f043cb Mon Sep 17 00:00:00 2001
+From dc75889e49675c868d33320a996c33d183fee94a Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 19 Feb 2023 22:12:24 +0100
 Subject: [PATCH] PCI: Add quirk to prevent calling shutdown mehtod
@@ -23,10 +23,10 @@ Patchset: surface-shutdown
  3 files changed, 40 insertions(+)
 
 diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-index 51ec9e7e784f..40554890d721 100644
+index af2996d0d17f..3ce0fb61257d 100644
 --- a/drivers/pci/pci-driver.c
 +++ b/drivers/pci/pci-driver.c
-@@ -507,6 +507,9 @@ static void pci_device_shutdown(struct device *dev)
+@@ -505,6 +505,9 @@ static void pci_device_shutdown(struct device *dev)
  	struct pci_dev *pci_dev = to_pci_dev(dev);
  	struct pci_driver *drv = pci_dev->driver;
  
@@ -37,13 +37,13 @@ index 51ec9e7e784f..40554890d721 100644
  
  	if (drv && drv->shutdown)
 diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index d797df6e5f3e..c674ee496a0b 100644
+index 568410e64ce6..f59d8fb36335 100644
 --- a/drivers/pci/quirks.c
 +++ b/drivers/pci/quirks.c
-@@ -6250,3 +6250,39 @@ static void pci_fixup_d3cold_delay_1sec(struct pci_dev *pdev)
- 	pdev->d3cold_delay = 1000;
- }
- DECLARE_PCI_FIXUP_FINAL(0x5555, 0x0004, pci_fixup_d3cold_delay_1sec);
+@@ -6273,3 +6273,39 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
+ #endif
 +
 +static const struct dmi_system_id no_shutdown_dmi_table[] = {
 +	/*
@@ -81,7 +81,7 @@ index d797df6e5f3e..c674ee496a0b 100644
 +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x466d, quirk_no_shutdown);  // Thunderbolt 4 NHI
 +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x46a8, quirk_no_shutdown);  // GPU
 diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 7ab0d13672da..8d8d9225e0db 100644
+index cafc5ab1cbcb..64bb5aca2c13 100644
 --- a/include/linux/pci.h
 +++ b/include/linux/pci.h
 @@ -465,6 +465,7 @@ struct pci_dev {
@@ -93,5 +93,5 @@ index 7ab0d13672da..8d8d9225e0db 100644
  	atomic_t	enable_cnt;	/* pci_enable_device has been called */
  
 -- 
-2.44.0
+2.45.2
 

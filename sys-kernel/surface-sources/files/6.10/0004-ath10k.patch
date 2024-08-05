@@ -1,4 +1,4 @@
-From 7b414f11dfa0be3204b0a43b82a75744f8218d57 Mon Sep 17 00:00:00 2001
+From 5030f889081c8676ae652623ad86b797b05d7221 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 27 Feb 2021 00:45:52 +0100
 Subject: [PATCH] ath10k: Add module parameters to override board files
@@ -16,11 +16,11 @@ via a modprobe.d config.
 Signed-off-by: Maximilian Luz <luzmaximilian@gmail.com>
 Patchset: ath10k
 ---
- drivers/net/wireless/ath/ath10k/core.c | 58 ++++++++++++++++++++++++++
- 1 file changed, 58 insertions(+)
+ drivers/net/wireless/ath/ath10k/core.c | 57 ++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
 diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
-index 0032f8aa892f..17717b53316b 100644
+index bdf0552cd1c3..e062cc687689 100644
 --- a/drivers/net/wireless/ath/ath10k/core.c
 +++ b/drivers/net/wireless/ath/ath10k/core.c
 @@ -39,6 +39,9 @@ static bool fw_diag_log;
@@ -53,7 +53,7 @@ index 0032f8aa892f..17717b53316b 100644
  static const struct ath10k_hw_params ath10k_hw_params_list[] = {
  	{
  		.id = QCA988X_HW_2_0_VERSION,
-@@ -928,6 +937,42 @@ static int ath10k_init_configure_target(struct ath10k *ar)
+@@ -914,6 +923,42 @@ static int ath10k_init_configure_target(struct ath10k *ar)
  	return 0;
  }
  
@@ -96,7 +96,7 @@ index 0032f8aa892f..17717b53316b 100644
  static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
  						   const char *dir,
  						   const char *file)
-@@ -942,6 +987,19 @@ static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
+@@ -928,6 +973,18 @@ static const struct firmware *ath10k_fetch_fw_file(struct ath10k *ar,
  	if (dir == NULL)
  		dir = ".";
  
@@ -108,14 +108,13 @@ index 0032f8aa892f..17717b53316b 100644
 +	 * Unfortunately, that's not a solution that we can easily package. So
 +	 * we add module options to perform these overrides here.
 +	 */
-+
 +	file = ath10k_override_board_fw_file(ar, file);
 +	if (!file)
 +		return ERR_PTR(-ENOENT);
 +
- 	snprintf(filename, sizeof(filename), "%s/%s", dir, file);
- 	ret = firmware_request_nowarn(&fw, filename, ar->dev);
- 	ath10k_dbg(ar, ATH10K_DBG_BOOT, "boot fw request '%s': %d\n",
+ 	if (ar->board_name) {
+ 		snprintf(filename, sizeof(filename), "%s/%s/%s",
+ 			 dir, ar->board_name, file);
 -- 
-2.44.0
+2.45.2
 
