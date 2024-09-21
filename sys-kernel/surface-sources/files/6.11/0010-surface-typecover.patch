@@ -1,4 +1,4 @@
-From edc26a9d993aca624b164989945d6bbcc5c7a856 Mon Sep 17 00:00:00 2001
+From 5685742814d25f3e7bf875d953edb3606cadf964 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 18 Feb 2023 01:02:49 +0100
 Subject: [PATCH] USB: quirks: Add USB_QUIRK_DELAY_INIT for Surface Go 3
@@ -39,7 +39,7 @@ index 13171454f959..a83beefd25f3 100644
 -- 
 2.46.1
 
-From 43bac5cac64c45b423509196acdb2261c3f0a7ba Mon Sep 17 00:00:00 2001
+From 996f946c80d5a28b533d2cb173faadf0421c05ae Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonas=20Dre=C3=9Fler?= <verdre@v0yd.nl>
 Date: Thu, 5 Nov 2020 13:09:45 +0100
 Subject: [PATCH] hid/multitouch: Turn off Type Cover keyboard backlight when
@@ -272,7 +272,7 @@ index 99812c0f830b..0b3b51e37149 100644
 -- 
 2.46.1
 
-From 41478ba3be0680c18610cb66f5344abadff1b82d Mon Sep 17 00:00:00 2001
+From 299f2254f1ea935f2f59c9150556dc6e26aa6ddb Mon Sep 17 00:00:00 2001
 From: PJungkamp <p.jungkamp@gmail.com>
 Date: Fri, 25 Feb 2022 12:04:25 +0100
 Subject: [PATCH] hid/multitouch: Add support for surface pro type cover tablet
