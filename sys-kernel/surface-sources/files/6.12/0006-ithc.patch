@@ -1,4 +1,4 @@
-From 3f81e12dfd2837a046c56c052edc3aabc8ee540e Mon Sep 17 00:00:00 2001
+From dc3bac38912e573c6534082ffcfda0cb2fc9a3e7 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Sun, 11 Dec 2022 12:03:38 +0100
 Subject: [PATCH] iommu: intel: Disable source id verification for ITHC
@@ -10,7 +10,7 @@ Patchset: ithc
  1 file changed, 16 insertions(+)
 
 diff --git a/drivers/iommu/intel/irq_remapping.c b/drivers/iommu/intel/irq_remapping.c
-index e090ca07364b..e575193615bf 100644
+index 7a6d188e3bea..0179baee4596 100644
 --- a/drivers/iommu/intel/irq_remapping.c
 +++ b/drivers/iommu/intel/irq_remapping.c
 @@ -389,6 +389,22 @@ static int set_msi_sid(struct irte *irte, struct pci_dev *dev)
@@ -39,7 +39,7 @@ index e090ca07364b..e575193615bf 100644
 -- 
 2.47.1
 
-From 0762a09dbf4911f892cab58d308c7328e2309ddf Mon Sep 17 00:00:00 2001
+From 3dcdddffd167ca72abc56abba9b68e3bfb9d1051 Mon Sep 17 00:00:00 2001
 From: quo <tuple@list.ru>
 Date: Sun, 11 Dec 2022 12:10:54 +0100
 Subject: [PATCH] hid: Add support for Intel Touch Host Controller
@@ -86,10 +86,10 @@ Patchset: ithc
  create mode 100644 drivers/hid/ithc/ithc.h
 
 diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index ccddfba86004..8e2ea8175bfb 100644
+index 38eb29e4cc31..76ad7d9143c7 100644
 --- a/drivers/hid/Kconfig
 +++ b/drivers/hid/Kconfig
-@@ -1369,4 +1369,6 @@ source "drivers/hid/surface-hid/Kconfig"
+@@ -1375,4 +1375,6 @@ source "drivers/hid/surface-hid/Kconfig"
  
  source "drivers/hid/ipts/Kconfig"
  
@@ -97,10 +97,10 @@ index ccddfba86004..8e2ea8175bfb 100644
 +
  endif # HID_SUPPORT
 diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index bdb17cffca2f..8987177f8b81 100644
+index 02588e5d01eb..1ea3d2e0d4e9 100644
 --- a/drivers/hid/Makefile
 +++ b/drivers/hid/Makefile
-@@ -171,3 +171,4 @@ obj-$(CONFIG_AMD_SFH_HID)       += amd-sfh-hid/
+@@ -172,3 +172,4 @@ obj-$(CONFIG_AMD_SFH_HID)       += amd-sfh-hid/
  obj-$(CONFIG_SURFACE_HID_CORE)  += surface-hid/
  
  obj-$(CONFIG_HID_IPTS)          += ipts/
