@@ -1,4 +1,4 @@
-From 9b0a957384c3dac5242656fca031988a9de2776f Mon Sep 17 00:00:00 2001
+From 222392358de9542132abcb173bfdc1d8a47deee3 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 19 Feb 2023 22:12:24 +0100
 Subject: [PATCH] PCI: Add quirk to prevent calling shutdown mehtod
@@ -37,10 +37,10 @@ index 35270172c833..529779994ef6 100644
  
  	if (drv && drv->shutdown)
 diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 0a1f668999ce..c05c382c715d 100644
+index 8aba731f9ce3..5e02a01fefc2 100644
 --- a/drivers/pci/quirks.c
 +++ b/drivers/pci/quirks.c
-@@ -6314,3 +6314,39 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
+@@ -6338,3 +6338,39 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
  #endif
