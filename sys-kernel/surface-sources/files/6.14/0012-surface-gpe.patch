@@ -1,4 +1,4 @@
-From b7ce7965f7676337a02f806cc57d3dec2ebfc946 Mon Sep 17 00:00:00 2001
+From 0ea6591811ba84ac67dc7bb320d2048e949f7aad Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 12 Mar 2023 01:41:57 +0100
 Subject: [PATCH] platform/surface: gpe: Add support for Surface Pro 9

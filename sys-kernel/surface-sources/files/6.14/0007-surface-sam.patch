@@ -1,4 +1,4 @@
-From 743c35534434dc42eecd818a5d6d02f33032f2f7 Mon Sep 17 00:00:00 2001
+From 156b853c039f830407bea29f01bb6f3489c7c3e1 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Fri, 17 Jun 2022 02:14:00 +0200
 Subject: [PATCH] rtc: Add basic support for RTC via Surface System Aggregator
@@ -14,7 +14,7 @@ Patchset: surface-sam
  create mode 100644 drivers/rtc/rtc-surface.c
 
 diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index a60bcc791a48..2de96e4c1ba6 100644
+index 0bbbf778ecfa..bd1d5c0dd6df 100644
 --- a/drivers/rtc/Kconfig
 +++ b/drivers/rtc/Kconfig
 @@ -1383,6 +1383,13 @@ config RTC_DRV_NTXEC
@@ -181,7 +181,7 @@ index 000000000000..f6c17c4e98d5
 -- 
 2.49.0
 
-From 47fccc8a7d20139c64577c160bc56eaf4bc2b953 Mon Sep 17 00:00:00 2001
+From 3dec366702ebcfb04f7805144eca4c943d19802b Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 20 Apr 2025 01:05:14 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add Surface Laptop 7
