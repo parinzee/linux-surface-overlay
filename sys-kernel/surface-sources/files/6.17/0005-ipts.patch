@@ -1,4 +1,4 @@
-From 1533f2824f23d3a5c2c9c34ece4fb3bd2b4c35d6 Mon Sep 17 00:00:00 2001
+From c4e655d712504f5d756f45541f2fdcb3707cd6c1 Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Thu, 30 Jul 2020 13:21:53 +0200
 Subject: [PATCH] mei: me: Add Icelake device ID for iTouch
@@ -37,7 +37,7 @@ index 3f9c60b579ae..853a67753333 100644
 -- 
 2.51.0
 
-From 729712aa7ade4f9211b158ea561fa7e41628b83d Mon Sep 17 00:00:00 2001
+From 6d3a8407644210b599bd5cd7bf10942ad7204fcc Mon Sep 17 00:00:00 2001
 From: Liban Hannan <liban.p@gmail.com>
 Date: Tue, 12 Apr 2022 23:31:12 +0100
 Subject: [PATCH] iommu: Use IOMMU passthrough mode for IPTS
@@ -61,7 +61,7 @@ Patchset: ipts
  1 file changed, 29 insertions(+)
 
 diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 91fe53d671e6..4dc0c206d8a1 100644
+index dff2d895b8ab..dc95cb3375fe 100644
 --- a/drivers/iommu/intel/iommu.c
 +++ b/drivers/iommu/intel/iommu.c
 @@ -39,6 +39,11 @@
@@ -76,7 +76,7 @@ index 91fe53d671e6..4dc0c206d8a1 100644
  #define IOAPIC_RANGE_START	(0xfee00000)
  #define IOAPIC_RANGE_END	(0xfeefffff)
  #define IOVA_START_ADDR		(0x1000)
-@@ -207,12 +212,14 @@ int intel_iommu_sm = IS_ENABLED(CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON);
+@@ -209,12 +214,14 @@ int intel_iommu_sm = IS_ENABLED(CONFIG_INTEL_IOMMU_SCALABLE_MODE_DEFAULT_ON);
  int intel_iommu_enabled = 0;
  EXPORT_SYMBOL_GPL(intel_iommu_enabled);
  
@@ -91,7 +91,7 @@ index 91fe53d671e6..4dc0c206d8a1 100644
  
  const struct iommu_ops intel_iommu_ops;
  static const struct iommu_dirty_ops intel_dirty_ops;
-@@ -1949,6 +1956,9 @@ static int device_def_domain_type(struct device *dev)
+@@ -1879,6 +1886,9 @@ static int device_def_domain_type(struct device *dev)
  
  		if ((iommu_identity_mapping & IDENTMAP_AZALIA) && IS_AZALIA(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
@@ -101,7 +101,7 @@ index 91fe53d671e6..4dc0c206d8a1 100644
  	}
  
  	return 0;
-@@ -2243,6 +2253,9 @@ static int __init init_dmars(void)
+@@ -2169,6 +2179,9 @@ static int __init init_dmars(void)
  		iommu_set_root_entry(iommu);
  	}
  
@@ -111,7 +111,7 @@ index 91fe53d671e6..4dc0c206d8a1 100644
  	check_tylersburg_isoch();
  
  	/*
-@@ -4466,6 +4479,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
+@@ -4515,6 +4528,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
  	disable_igfx_iommu = 1;
  }
  
@@ -130,7 +130,7 @@ index 91fe53d671e6..4dc0c206d8a1 100644
  /* G4x/GM45 integrated gfx dmar support is totally busted. */
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2a40, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x2e00, quirk_iommu_igfx);
-@@ -4504,6 +4529,10 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
+@@ -4553,6 +4578,10 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163A, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163D, quirk_iommu_igfx);
  
@@ -144,7 +144,7 @@ index 91fe53d671e6..4dc0c206d8a1 100644
 -- 
 2.51.0
 
-From 4d065841244d18685f58d9ef74de9babf8267f49 Mon Sep 17 00:00:00 2001
+From c3091f09b9deb8831412f84c13462ab04b86622e Mon Sep 17 00:00:00 2001
 From: Dorian Stoll <dorian.stoll@tmsp.io>
 Date: Sun, 11 Dec 2022 12:00:59 +0100
 Subject: [PATCH] hid: Add support for Intel Precise Touch and Stylus
@@ -211,10 +211,10 @@ Patchset: ipts
  create mode 100644 drivers/hid/ipts/thread.h
 
 diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 43859fc75747..ded8868dcfea 100644
+index b934523593d9..b2cc5db65f5b 100644
 --- a/drivers/hid/Kconfig
 +++ b/drivers/hid/Kconfig
-@@ -1429,6 +1429,8 @@ source "drivers/hid/surface-hid/Kconfig"
+@@ -1428,6 +1428,8 @@ source "drivers/hid/surface-hid/Kconfig"
  
  source "drivers/hid/intel-thc-hid/Kconfig"
  

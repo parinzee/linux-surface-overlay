@@ -1,4 +1,4 @@
-From 35f4b75b62840ca63be7ed1d2e141301a2288587 Mon Sep 17 00:00:00 2001
+From b83775761995a645f0c958d518ae0e9dc2c40cb7 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Fri, 17 Jun 2022 02:14:00 +0200
 Subject: [PATCH] rtc: Add basic support for RTC via Surface System Aggregator
@@ -14,7 +14,7 @@ Patchset: surface-sam
  create mode 100644 drivers/rtc/rtc-surface.c
 
 diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 838bdc138ffe..0b7f712f23ea 100644
+index 9aec922613ce..cd7071b17616 100644
 --- a/drivers/rtc/Kconfig
 +++ b/drivers/rtc/Kconfig
 @@ -1376,6 +1376,13 @@ config RTC_DRV_NTXEC
@@ -32,10 +32,10 @@ index 838bdc138ffe..0b7f712f23ea 100644
  
  config RTC_DRV_ASM9260
 diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
-index 31473b3276d9..dba135e0a2a5 100644
+index 4619aa2ac469..58f1774c7368 100644
 --- a/drivers/rtc/Makefile
 +++ b/drivers/rtc/Makefile
-@@ -179,6 +179,7 @@ obj-$(CONFIG_RTC_DRV_SUN4V)	+= rtc-sun4v.o
+@@ -181,6 +181,7 @@ obj-$(CONFIG_RTC_DRV_SUN4V)	+= rtc-sun4v.o
  obj-$(CONFIG_RTC_DRV_SUN6I)	+= rtc-sun6i.o
  obj-$(CONFIG_RTC_DRV_SUNPLUS)	+= rtc-sunplus.o
  obj-$(CONFIG_RTC_DRV_SUNXI)	+= rtc-sunxi.o
@@ -181,7 +181,7 @@ index 000000000000..f6c17c4e98d5
 -- 
 2.51.0
 
-From efe6e1411a5b20c8f6d65715d29ce21d14a26c86 Mon Sep 17 00:00:00 2001
+From d8f161cde861f572e191a8f7baa59d8e55051799 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sun, 20 Apr 2025 01:05:14 +0200
 Subject: [PATCH] platform/surface: aggregator_registry: Add Surface Laptop 7

@@ -1,4 +1,4 @@
-From da3aff48826a9ec1ca4383a32c3886d41d4ec0a7 Mon Sep 17 00:00:00 2001
+From 61461ed065cb724b5fc971cb0c5272ef3313a42f Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 27 Feb 2021 00:45:52 +0100
 Subject: [PATCH] ath10k: Add module parameters to override board files
@@ -20,7 +20,7 @@ Patchset: ath10k
  1 file changed, 57 insertions(+)
 
 diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
-index 1adc35e37f40..3d68fe019b3c 100644
+index 8b659678856d..5ed699691b39 100644
 --- a/drivers/net/wireless/ath/ath10k/core.c
 +++ b/drivers/net/wireless/ath/ath10k/core.c
 @@ -40,6 +40,9 @@ static bool fw_diag_log;

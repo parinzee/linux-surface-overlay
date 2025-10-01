@@ -1,4 +1,4 @@
-From f4a6dd6dc6edd292095b0f01051d6e90e520ecca Mon Sep 17 00:00:00 2001
+From 365e0d66f4e0f3681795b63db37ebf14f8e2fdf2 Mon Sep 17 00:00:00 2001
 From: Hans de Goede <hdegoede@redhat.com>
 Date: Sun, 10 Oct 2021 20:56:57 +0200
 Subject: [PATCH] ACPI: delay enumeration of devices with a _DEP pointing to an
@@ -74,7 +74,7 @@ index fb1fe9f3b1a3..5be8893b3912 100644
 -- 
 2.51.0
 
-From 3eea25192fd66c8ced9694ec68757fb1d09c348a Mon Sep 17 00:00:00 2001
+From 90cb7694c399c63d5c6c44aba0ee1cb048c6355d Mon Sep 17 00:00:00 2001
 From: zouxiaoh <xiaohong.zou@intel.com>
 Date: Fri, 25 Jun 2021 08:52:59 +0800
 Subject: [PATCH] iommu: intel-ipu: use IOMMU passthrough mode for Intel IPUs
@@ -100,7 +100,7 @@ Patchset: cameras
  1 file changed, 30 insertions(+)
 
 diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 4dc0c206d8a1..2132278e627e 100644
+index dc95cb3375fe..8c900fce80d1 100644
 --- a/drivers/iommu/intel/iommu.c
 +++ b/drivers/iommu/intel/iommu.c
 @@ -44,6 +44,13 @@
@@ -117,7 +117,7 @@ index 4dc0c206d8a1..2132278e627e 100644
  #define IOAPIC_RANGE_START	(0xfee00000)
  #define IOAPIC_RANGE_END	(0xfeefffff)
  #define IOVA_START_ADDR		(0x1000)
-@@ -213,12 +220,14 @@ int intel_iommu_enabled = 0;
+@@ -215,12 +222,14 @@ int intel_iommu_enabled = 0;
  EXPORT_SYMBOL_GPL(intel_iommu_enabled);
  
  static int dmar_map_ipts = 1;
@@ -132,7 +132,7 @@ index 4dc0c206d8a1..2132278e627e 100644
  #define IDENTMAP_IPTS		16
  
  const struct iommu_ops intel_iommu_ops;
-@@ -1957,6 +1966,9 @@ static int device_def_domain_type(struct device *dev)
+@@ -1887,6 +1896,9 @@ static int device_def_domain_type(struct device *dev)
  		if ((iommu_identity_mapping & IDENTMAP_AZALIA) && IS_AZALIA(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
  
@@ -142,7 +142,7 @@ index 4dc0c206d8a1..2132278e627e 100644
  		if ((iommu_identity_mapping & IDENTMAP_IPTS) && IS_IPTS(pdev))
  			return IOMMU_DOMAIN_IDENTITY;
  	}
-@@ -2253,6 +2265,9 @@ static int __init init_dmars(void)
+@@ -2179,6 +2191,9 @@ static int __init init_dmars(void)
  		iommu_set_root_entry(iommu);
  	}
  
@@ -152,7 +152,7 @@ index 4dc0c206d8a1..2132278e627e 100644
  	if (!dmar_map_ipts)
  		iommu_identity_mapping |= IDENTMAP_IPTS;
  
-@@ -4479,6 +4494,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
+@@ -4528,6 +4543,18 @@ static void quirk_iommu_igfx(struct pci_dev *dev)
  	disable_igfx_iommu = 1;
  }
  
@@ -171,7 +171,7 @@ index 4dc0c206d8a1..2132278e627e 100644
  static void quirk_iommu_ipts(struct pci_dev *dev)
  {
  	if (!IS_IPTS(dev))
-@@ -4529,6 +4556,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
+@@ -4578,6 +4605,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x1632, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163A, quirk_iommu_igfx);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x163D, quirk_iommu_igfx);
  
@@ -184,7 +184,7 @@ index 4dc0c206d8a1..2132278e627e 100644
 -- 
 2.51.0
 
-From 4b200899714ce804e4c7807218b25efdb069b655 Mon Sep 17 00:00:00 2001
+From ad0067a390921345f7c43779b102f43f3b587f4c Mon Sep 17 00:00:00 2001
 From: Daniel Scally <djrscally@gmail.com>
 Date: Sun, 10 Oct 2021 20:57:02 +0200
 Subject: [PATCH] platform/x86: int3472: Enable I2c daisy chain
@@ -201,7 +201,7 @@ Patchset: cameras
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/platform/x86/intel/int3472/tps68470.c b/drivers/platform/x86/intel/int3472/tps68470.c
-index 81ac4c691963..f453c9043042 100644
+index 0133405697dc..9e0763bdc758 100644
 --- a/drivers/platform/x86/intel/int3472/tps68470.c
 +++ b/drivers/platform/x86/intel/int3472/tps68470.c
 @@ -46,6 +46,13 @@ static int tps68470_chip_init(struct device *dev, struct regmap *regmap)
@@ -221,7 +221,7 @@ index 81ac4c691963..f453c9043042 100644
 -- 
 2.51.0
 
-From b387e3ac7ddd78a29cc58f90935ada6a0bc93e35 Mon Sep 17 00:00:00 2001
+From e80f10566f351ea0de98d606a6bbc8c8089a7712 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <dan.scally@ideasonboard.com>
 Date: Tue, 21 Mar 2023 13:45:26 +0000
 Subject: [PATCH] media: i2c: Clarify that gain is Analogue gain in OV7251
@@ -236,7 +236,7 @@ Patchset: cameras
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
-index 3226888d77e9..3bfe45b764f7 100644
+index 31a42d81e970..0d5a8fd86e67 100644
 --- a/drivers/media/i2c/ov7251.c
 +++ b/drivers/media/i2c/ov7251.c
 @@ -1053,7 +1053,7 @@ static int ov7251_s_ctrl(struct v4l2_ctrl *ctrl)
@@ -248,7 +248,7 @@ index 3226888d77e9..3bfe45b764f7 100644
  		ret = ov7251_set_gain(ov7251, ctrl->val);
  		break;
  	case V4L2_CID_TEST_PATTERN:
-@@ -1574,7 +1574,7 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
+@@ -1579,7 +1579,7 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
  	ov7251->exposure = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
  					     V4L2_CID_EXPOSURE, 1, 32, 1, 32);
  	ov7251->gain = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
@@ -260,7 +260,7 @@ index 3226888d77e9..3bfe45b764f7 100644
 -- 
 2.51.0
 
-From 160e73996b82ec3ec046359591e04b4b5a6166fc Mon Sep 17 00:00:00 2001
+From c7942343d69b7a0dd2868a27ddda3c49b528b784 Mon Sep 17 00:00:00 2001
 From: Daniel Scally <dan.scally@ideasonboard.com>
 Date: Wed, 22 Mar 2023 11:01:42 +0000
 Subject: [PATCH] media: v4l2-core: Acquire privacy led in
@@ -311,7 +311,7 @@ index cb153ce42c45..f11b499e14bb 100644
 -- 
 2.51.0
 
-From 253c3518c9c6911bd24c6cd8af6bd17411fe9290 Mon Sep 17 00:00:00 2001
+From 2a087a81397c2ac9a79a7861e553a40e69eb2aae Mon Sep 17 00:00:00 2001
 From: Kate Hsuan <hpa@redhat.com>
 Date: Tue, 21 Mar 2023 23:37:16 +0800
 Subject: [PATCH] platform: x86: int3472: Add MFD cell for tps68470 LED
@@ -327,7 +327,7 @@ Patchset: cameras
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/platform/x86/intel/int3472/tps68470.c b/drivers/platform/x86/intel/int3472/tps68470.c
-index f453c9043042..b8ad6b413e8b 100644
+index 9e0763bdc758..0976b267972b 100644
 --- a/drivers/platform/x86/intel/int3472/tps68470.c
 +++ b/drivers/platform/x86/intel/int3472/tps68470.c
 @@ -17,7 +17,7 @@
@@ -352,7 +352,7 @@ index f453c9043042..b8ad6b413e8b 100644
 -- 
 2.51.0
 
-From 6d968e793dfceab0ccd3364da326df65864477c4 Mon Sep 17 00:00:00 2001
+From 0258799a71d332c75235d50e2ca799863d803508 Mon Sep 17 00:00:00 2001
 From: Kate Hsuan <hpa@redhat.com>
 Date: Tue, 21 Mar 2023 23:37:17 +0800
 Subject: [PATCH] include: mfd: tps68470: Add masks for LEDA and LEDB
@@ -393,7 +393,7 @@ index 7807fa329db0..2d2abb25b944 100644
 -- 
 2.51.0
 
-From 54fb950d16116f19179a7c95a6f69e9676e9f287 Mon Sep 17 00:00:00 2001
+From fd36497dcf8f79d5e5c9dd8b4088d3fb694ee799 Mon Sep 17 00:00:00 2001
 From: Kate Hsuan <hpa@redhat.com>
 Date: Tue, 21 Mar 2023 23:37:18 +0800
 Subject: [PATCH] leds: tps68470: Add LED control for tps68470
@@ -416,10 +416,10 @@ Patchset: cameras
  create mode 100644 drivers/leds/leds-tps68470.c
 
 diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index a104cbb0a001..535a10cbbff1 100644
+index 6e3dce7e35a4..5b6ba103867c 100644
 --- a/drivers/leds/Kconfig
 +++ b/drivers/leds/Kconfig
-@@ -995,6 +995,18 @@ config LEDS_TPS6105X
+@@ -1002,6 +1002,18 @@ config LEDS_TPS6105X
  	  It is a single boost converter primarily for white LEDs and
  	  audio amplifiers.
  
@@ -439,10 +439,10 @@ index a104cbb0a001..535a10cbbff1 100644
  	tristate "LED support for SGI Octane machines"
  	depends on LEDS_CLASS
 diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 2f170d69dcbf..17f0ecd1f52e 100644
+index 9a0333ec1a86..4e1ca8fc9b41 100644
 --- a/drivers/leds/Makefile
 +++ b/drivers/leds/Makefile
-@@ -92,6 +92,7 @@ obj-$(CONFIG_LEDS_TCA6507)		+= leds-tca6507.o
+@@ -93,6 +93,7 @@ obj-$(CONFIG_LEDS_TCA6507)		+= leds-tca6507.o
  obj-$(CONFIG_LEDS_TI_LMU_COMMON)	+= leds-ti-lmu-common.o
  obj-$(CONFIG_LEDS_TLC591XX)		+= leds-tlc591xx.o
  obj-$(CONFIG_LEDS_TPS6105X)		+= leds-tps6105x.o
@@ -644,7 +644,7 @@ index 000000000000..35aeb5db89c8
 -- 
 2.51.0
 
-From 7f206da7835dcaa506e4bac6c6b8d59f4e9a2f26 Mon Sep 17 00:00:00 2001
+From 4c7a0198b0d3e3e8f074df6cc7841452dd35cd68 Mon Sep 17 00:00:00 2001
 From: mojyack <mojyack@gmail.com>
 Date: Tue, 26 Mar 2024 05:55:44 +0900
 Subject: [PATCH] media: i2c: dw9719: fix probe error on surface go 2

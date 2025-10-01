@@ -1,4 +1,4 @@
-From 4a5332d608cc9203ec450546b2c18b5a1efe2c32 Mon Sep 17 00:00:00 2001
+From f8c0ddcb0164e1a1702102ce13bf5e09568d5c0a Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 25 Jul 2020 17:19:53 +0200
 Subject: [PATCH] i2c: acpi: Implement RawBytes read access
@@ -55,7 +55,7 @@ Patchset: surface-sam-over-hid
  1 file changed, 34 insertions(+)
 
 diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
-index f43067f6797e..1761ca30e17a 100644
+index ed90858a27b7..070c36637811 100644
 --- a/drivers/i2c/i2c-core-acpi.c
 +++ b/drivers/i2c/i2c-core-acpi.c
 @@ -662,6 +662,27 @@ static int acpi_gsb_i2c_write_bytes(struct i2c_client *client,
@@ -109,7 +109,7 @@ index f43067f6797e..1761ca30e17a 100644
 -- 
 2.51.0
 
-From c548bea8e95195d03c39cb8ce2fd9f0d5e335da3 Mon Sep 17 00:00:00 2001
+From 7f1e39bb740f65df743017db3196d5029bd3ffa3 Mon Sep 17 00:00:00 2001
 From: Maximilian Luz <luzmaximilian@gmail.com>
 Date: Sat, 13 Feb 2021 16:41:18 +0100
 Subject: [PATCH] platform/surface: Add driver for Surface Book 1 dGPU switch
@@ -132,7 +132,7 @@ Patchset: surface-sam-over-hid
  create mode 100644 drivers/platform/surface/surfacebook1_dgpu_switch.c
 
 diff --git a/drivers/platform/surface/Kconfig b/drivers/platform/surface/Kconfig
-index b629e82af97c..68656e8f309e 100644
+index f775c6ca1ec1..2075e3852053 100644
 --- a/drivers/platform/surface/Kconfig
 +++ b/drivers/platform/surface/Kconfig
 @@ -149,6 +149,13 @@ config SURFACE_AGGREGATOR_TABLET_SWITCH

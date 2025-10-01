@@ -1,4 +1,4 @@
-From 122a63dc573c878b58e0b0728d13db666753f5cf Mon Sep 17 00:00:00 2001
+From bc0020cb77950499ba8166abe4e0b08ebd1aeb21 Mon Sep 17 00:00:00 2001
 From: "Bart Groeneveld | GPX Solutions B.V" <bart@gpxbv.nl>
 Date: Mon, 5 Dec 2022 16:08:46 +0100
 Subject: [PATCH] acpi: allow usage of acpi_tad on HW-reduced platforms
